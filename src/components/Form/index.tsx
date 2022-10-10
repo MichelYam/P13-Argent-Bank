@@ -13,30 +13,31 @@ export default function Index({ isLogin, title }: FormInterface) {
         firstName: '',
         email: '',
         password: '',
-        remember: '',
+        remember: false,
     })
     const [errors, setErrors] = useState([]);
 
-    const handleChangeValue = (event: React.FormEvent<HTMLInputElement>) => {
+    const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
         setData({
             ...data,
-            [(event.target as HTMLInputElement).id]:
-                (event.target as HTMLInputElement).id === "remember" ? !data.remember : (event.target as HTMLInputElement).value,
+            [event.currentTarget.id]:
+                event.currentTarget.id === "remember" ? !data.remember : event.currentTarget.value,
         });
     };
 
-    // const submitForm = (data) => {
-
-    // }
+    const submitForm = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        console.log(data)
+    }
     return (
-        <form>
+        <form onSubmit={submitForm}>
             <div className="input-wrapper">
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" onChange={handleChangeValue} />
+                <label htmlFor="email">Email</label>
+                <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" onChange={handleChangeValue} />
+                <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
             </div>
             {
                 isLogin ? <>
@@ -52,15 +53,15 @@ export default function Index({ isLogin, title }: FormInterface) {
                 !isLogin ? <>
                     <div className="input-wrapper">
                         <label htmlFor="password">First Name</label>
-                        <input type="text" id="firstName" onChange={handleChangeValue} />
+                        <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Last Name</label>
-                        <input type="text" id="lastName" onChange={handleChangeValue} />
+                        <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Confirm Password</label>
-                        <input type="password" id="confirmPassword" onChange={handleChangeValue} />
+                        <input type="password" id="confirmPassword" value={data.email} onChange={handleChangeValue} />
                     </div>
                     <Link to={'/signin'}>I already have an account</Link>
                 </> : null
