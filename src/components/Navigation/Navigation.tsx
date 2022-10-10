@@ -1,19 +1,20 @@
 import React from 'react';
-import "./Style.css"
-import { Link } from "react-router-dom"
+import "./Style.css";
+import { Link } from "react-router-dom";
+
 export default function Navigation() {
     return (
         <nav className="main-nav">
-            <a className="main-nav-logo" href="./index.html">
+            <Link to={'/'} className="main-nav-logo">
                 <img
                     className="main-nav-logo-image"
                     src="./img/argentBankLogo.png"
                     alt="Argent Bank Logo"
                 />
                 <h1 className="sr-only">Argent Bank</h1>
-            </a>
+            </Link>
             <div>
-                <Link className="main-nav-item" to={`/sign-in`}>
+                <Link className="main-nav-item" to={`/signin`}>
                     <i className="fa fa-user-circle"></i>
                     Sign In
                 </Link>
@@ -26,6 +27,6 @@ export default function Navigation() {
                     Sign Out
                 </Link> */}
             </div>
-        </nav>
+        </nav >
     )
 }
