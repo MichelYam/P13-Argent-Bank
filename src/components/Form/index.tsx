@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import "./Style.css";
-
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from '../../utils/selector';
+import { userLogin } from '../../features/user/userActions';
+
 
 interface FormInterface {
     isLogin: boolean,
@@ -15,7 +18,9 @@ export default function Index({ isLogin, title }: FormInterface) {
         password: '',
         remember: false,
     })
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
+
+    const dispatch = useDispatch()
 
     const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
         setData({
@@ -25,12 +30,18 @@ export default function Index({ isLogin, title }: FormInterface) {
         });
     };
 
-    const submitForm = (event: React.SyntheticEvent) => {
+    const user = useSelector(selectUser)
+    
+    const submitFormLogin = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        console.log(data)
+        dispatch(userLogin(data))
+    }
+    const submitFormRegister = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        // dispatch(userRegister(data))
     }
     return (
-        <form onSubmit={submitForm}>
+        <form onSubmit={isLogin ? submitFormLogin : submitFormRegister}>
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
