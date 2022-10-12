@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import "./Style.css";
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
 import { userLogin } from '../../features/user/userActions';
-
+import { IUser } from "../../features/user/userActions"
 
 interface FormInterface {
     isLogin: boolean,
@@ -19,9 +19,13 @@ export default function Index({ isLogin, title }: FormInterface) {
         remember: false,
     })
     // const [errors, setErrors] = useState([]);
+    // const { loading, error } = useSelector(selectUser)
 
     const dispatch = useDispatch()
-
+    // let history = Navigate();
+    // if (isAuthenticated()) {
+    //     history.push('/');
+    // }
     const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
         setData({
             ...data,
@@ -30,11 +34,9 @@ export default function Index({ isLogin, title }: FormInterface) {
         });
     };
 
-    const user = useSelector(selectUser)
-    
-    const submitFormLogin = (event: React.SyntheticEvent) => {
+    const submitFormLogin = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        dispatch(userLogin(data))
+        dispatch(await userLogin(data))
     }
     const submitFormRegister = (event: React.SyntheticEvent) => {
         event.preventDefault();

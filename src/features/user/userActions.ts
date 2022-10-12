@@ -1,13 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const BASE_URL = "http://localhost:3030/api/v1/users/";
+const BASE_URL = "http://localhost:3001/api/v1/user";
 
-interface dataInterface {
+export interface IUser {
     email: string,
     password: string,
+    lastName?: string;
+    firstName?: string;
+    remember?: boolean;
 }
 
-export const userLogin = createAsyncThunk('user/login', async ({ email, password }: dataInterface, { rejectWithValue }) => {
+export const userLogin = async ({ email, password }: IUser) => {
     try {
         // const config = {
         //     header: {
@@ -15,7 +18,8 @@ export const userLogin = createAsyncThunk('user/login', async ({ email, password
         //     },
         // }
         const { data } = await axios.post(`${BASE_URL}/login`, { email, password });
-        localStorage.setItem("userToken", data.userToken);
+        localStorage.setItem("userToken", data.body.token);
+        localStorage.setItem("user", data.email);
         return data;
     } catch (error) {
         let errorMessage = "Failed to do something exceptional";
@@ -24,4 +28,4 @@ export const userLogin = createAsyncThunk('user/login', async ({ email, password
         }
         console.log(errorMessage);
     }
-})
+}

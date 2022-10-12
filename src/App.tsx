@@ -8,6 +8,7 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer'
 import { User } from './pages/User/User';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { PrivateRoute } from './components/Navigation/PrivateRoute';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
-        <Route path='/user' element={<User />} />
+        <Route element={<PrivateRoute />}>
+          <Route path='/user' element={<User />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>
