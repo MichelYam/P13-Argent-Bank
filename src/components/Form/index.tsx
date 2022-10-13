@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import "./Style.css";
 import { Link, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
 import { userLogin } from '../../features/user/userActions';
-import { IUser } from "../../features/user/userActions"
+
 
 interface FormInterface {
     isLogin: boolean,
@@ -18,14 +18,10 @@ export default function Index({ isLogin, title }: FormInterface) {
         password: '',
         remember: false,
     })
+    const { userToken } = useSelector(selectUser);
     // const [errors, setErrors] = useState([]);
-    // const { loading, error } = useSelector(selectUser)
-
     const dispatch = useDispatch()
-    // let history = Navigate();
-    // if (isAuthenticated()) {
-    //     history.push('/');
-    // }
+
     const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
         setData({
             ...data,
@@ -42,6 +38,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         event.preventDefault();
         // dispatch(userRegister(data))
     }
+    if (userToken) return <Navigate to={'/user'} />;
     return (
         <form onSubmit={isLogin ? submitFormLogin : submitFormRegister}>
             <div className="input-wrapper">
@@ -83,3 +80,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         </form >
     )
 }
+function getState() {
+    throw new Error('Function not implemented.');
+}
+

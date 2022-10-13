@@ -3,19 +3,15 @@ import "./Style.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
+import { logout } from '../../features/user/userActions';
 
 
 export default function Navigation() {
-    const { userInfo, userToken } = useSelector(selectUser);
+    const { userToken } = useSelector(selectUser);
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (userToken) {
-            dispatch(getUserDetails());
-        }
-    })
 
-    const logOut = () => {
-        dispatch(logOut())
+    const logoutUser = () => {
+        logout()
     }
 
     return (
@@ -29,17 +25,17 @@ export default function Navigation() {
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
             <div>
-                {!user.userToken ?
+                {!userToken ?
                     <Link className="main-nav-item" to={`/signin`}>
                         <i className="fa fa-user-circle"></i>
                         Sign In
                     </Link> :
                     <>
-                        <Link className="main-nav-item" to={"./user.html"}>
+                        <Link className="main-nav-item" to={"/user"}>
                             <i className="fa fa-user-circle"></i>
                             Tony
                         </Link>
-                        <Link className="main-nav-item" to={"./index.html"} onClick={logOut}>
+                        <Link className="main-nav-item" to={"/"} onClick={logoutUser}>
                             <i className="fa fa-sign-out"></i>
                             Sign Out
                         </Link>
@@ -49,7 +45,3 @@ export default function Navigation() {
         </nav >
     )
 }
-function setToken(arg0: string): any {
-    throw new Error('Function not implemented.');
-}
-

@@ -6,10 +6,11 @@ const userToken = localStorage.getItem('userToken')
     : null
 
 const initialState = {
-    status: 'void',
-    error: null,
+    isAuthenticated: false,
+    loading: false,
     userInfo: {},
     userToken,
+
 }
 
 const userSlice = createSlice({
@@ -17,13 +18,6 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action) => { state.userToken = action.payload },
-        // setEmail: (state, action) => { state.userInfo.email = action.payload }
-        logOut: (state) => {
-            localStorage.removeItem('userToken')
-            state.userInfo = null
-            state.userToken = null
-            state.error = null
-        },
     },
     // extraReducers: (builder) => {
     //     builder.addCase(userLogin.pending, (state) => {
@@ -41,5 +35,5 @@ const userSlice = createSlice({
     //     })
     // }
 });
-
+export const { setToken } = userSlice.actions;
 export default userSlice.reducer
