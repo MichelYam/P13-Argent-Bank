@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react';
 import "./Style.css";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../../utils/selector';
-import { logout } from '../../features/user/userActions';
+import { Link, redirect } from "react-router-dom";
+// import { logout } from '../../features/user/userActions';
 
+interface INavigation {
+    userToken: string | null,
+    logout: () => void
+}
 
-export default function Navigation() {
-    const { userToken } = useSelector(selectUser);
-    const dispatch = useDispatch()
-
-    const logoutUser = () => {
-        logout()
-    }
+export const Navigation: React.FC<INavigation> = ({ userToken, logout }) => {
 
     return (
         <nav className="main-nav">
@@ -35,7 +31,7 @@ export default function Navigation() {
                             <i className="fa fa-user-circle"></i>
                             Tony
                         </Link>
-                        <Link className="main-nav-item" to={"/"} onClick={logoutUser}>
+                        <Link className="main-nav-item" to={"/signin"} onClick={logout}>
                             <i className="fa fa-sign-out"></i>
                             Sign Out
                         </Link>
@@ -45,3 +41,7 @@ export default function Navigation() {
         </nav >
     )
 }
+function setToken(arg0: string): any {
+    throw new Error('Function not implemented.');
+}
+

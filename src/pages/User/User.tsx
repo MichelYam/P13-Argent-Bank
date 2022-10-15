@@ -30,12 +30,12 @@ export const User: React.FC = () => {
     })
     const [editMode, setEditMode] = useState(false);
     const dispatch = useDispatch()
-    const { userToken } = useSelector(selectUser)
-    console.log(name)
+    const { userToken, userInfo } = useSelector(selectUser)
+    console.log(userInfo)
     useEffect(() => {
         const fetchData = async () => {
             if (userToken) {
-                dispatch(await getUserDetails());
+                // dispatch(await getUserDetails());
             }
         }
         fetchData()
@@ -75,7 +75,7 @@ export const User: React.FC = () => {
             <h2 className="sr-only">Accounts</h2>
             {
                 accountData.map((account) =>
-                    <Account title={account.title} amount={account.description} description={account.description} />
+                    <Account key={account.title} title={account.title} amount={account.description} description={account.description} />
                 )
             }
         </main>

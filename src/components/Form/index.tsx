@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import "./Style.css";
 import { Link, Navigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
 import { userLogin } from '../../features/user/userActions';
+import { useAppDispatch } from '../../redux/store';
 
 
 interface FormInterface {
@@ -20,7 +21,7 @@ export default function Index({ isLogin, title }: FormInterface) {
     })
     const { userToken } = useSelector(selectUser);
     // const [errors, setErrors] = useState([]);
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
         setData({
@@ -30,9 +31,9 @@ export default function Index({ isLogin, title }: FormInterface) {
         });
     };
 
-    const submitFormLogin = async (event: React.SyntheticEvent) => {
+    const submitFormLogin = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        dispatch(await userLogin(data))
+        dispatch(userLogin(data))
     }
     const submitFormRegister = (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -57,24 +58,22 @@ export default function Index({ isLogin, title }: FormInterface) {
                     </div>
                     {/* <a href="./user.html" className="sign-in-button">Sign In</a> */}
                     {/* <button className="sign-in-button">Sign In</button> */}
-                </> : null
-            }
-            {
-                !isLogin ? <>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">First Name</label>
-                        <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} />
-                    </div>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">Last Name</label>
-                        <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} />
-                    </div>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">Confirm Password</label>
-                        <input type="password" id="confirmPassword" value={data.email} onChange={handleChangeValue} />
-                    </div>
-                    <Link to={'/signin'}>I already have an account</Link>
-                </> : null
+                </> :
+                    <>
+                        <div className="input-wrapper">
+                            <label htmlFor="password">First Name</label>
+                            <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} />
+                        </div>
+                        <div className="input-wrapper">
+                            <label htmlFor="password">Last Name</label>
+                            <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} />
+                        </div>
+                        <div className="input-wrapper">
+                            <label htmlFor="password">Confirm Password</label>
+                            <input type="password" id="confirmPassword" value={data.email} onChange={handleChangeValue} />
+                        </div>
+                        <Link to={'/signin'}>I already have an account</Link>
+                    </>
             }
             <button className="sign-in-button">{title}</button>
         </form >

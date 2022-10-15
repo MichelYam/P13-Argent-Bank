@@ -21,9 +21,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}> */}
           <Route path='/user' element={<User />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
       <Footer />
     </BrowserRouter>
