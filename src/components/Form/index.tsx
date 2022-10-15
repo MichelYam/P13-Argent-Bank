@@ -33,7 +33,7 @@ export default function Index({ isLogin, title }: FormInterface) {
 
     const submitFormLogin = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        dispatch(userLogin(data))
+        dispatch(userLogin(data));
     }
     const submitFormRegister = (event: React.SyntheticEvent) => {
         event.preventDefault();

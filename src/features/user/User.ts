@@ -8,7 +8,7 @@ import { userLogin } from './userActions'
 const initialState = {
     isAuthenticated: false,
     loading: false,
-    userInfo: {},
+    userInfo: null,
     userToken: localStorage.getItem('userToken') || null,
     error: null,
 }
@@ -30,7 +30,7 @@ const userSlice = createSlice({
         builder.addCase(userLogin.fulfilled, (state, { payload }) => {
             state.loading = false
             state.userInfo = payload
-            state.userToken = payload.userToken
+            state.userToken = payload.body.token
         })
         builder.addCase(userLogin.rejected, (state, { payload }) => {
             state.loading = false

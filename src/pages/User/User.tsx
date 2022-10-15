@@ -31,7 +31,8 @@ export const User: React.FC = () => {
     const [editMode, setEditMode] = useState(false);
     const dispatch = useDispatch()
     const { userToken, userInfo } = useSelector(selectUser)
-    console.log(userInfo)
+    // console.log(userInfo)
+    // console.log(userToken)
     useEffect(() => {
         const fetchData = async () => {
             if (userToken) {

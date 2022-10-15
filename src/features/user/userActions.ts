@@ -13,27 +13,12 @@ export interface IUser {
     remember?: boolean;
 }
 
-// export const userLogin = async ({ email, password }: IUser) => {
-//     try {
-//         const { data } = await axios.post(`${BASE_URL}/login`, { email, password });
-//         localStorage.setItem("userToken", data.body.token);
-//         dispatch(setToken(data.body.token));
-//         return data;
-//     } catch (error) {
-//         let errorMessage = "Failed to do something exceptional";
-//         if (error instanceof Error) {
-//             errorMessage = error.message;
-//         }
-//         console.log(errorMessage);
-//     }
-// }
 export const userLogin = createAsyncThunk("users/login", async ({ email, password }: IUser, { rejectWithValue }) => {
     try {
         const response = await fetch(`${BASE_URL}/login`,
             {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
