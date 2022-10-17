@@ -79,7 +79,3 @@ export default function Index({ isLogin, title }: FormInterface) {
         </form >
     )
 }
-function getState() {
-    throw new Error('Function not implemented.');
-}
-

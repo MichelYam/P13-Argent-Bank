@@ -1,19 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { redirect } from 'react-router-dom'
 import axios from "axios";
-import { setToken } from "./User";
 import { useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const BASE_URL = "http://localhost:3001/api/v1/user";
 export interface IUser {
     email: string,
     password: string,
-    lastName?: string;
-    firstName?: string;
+    firstName?: string ;
+    lastName?: string ;
     remember?: boolean;
 }
-
-export const userLogin = createAsyncThunk("users/login", async ({ email, password }: IUser, { rejectWithValue }) => {
+export const userLogin = createAsyncThunk("user/login", async ({ email, password }: IUser, { rejectWithValue }) => {
     try {
         const response = await fetch(`${BASE_URL}/login`,
             {
@@ -45,22 +44,25 @@ export const userLogin = createAsyncThunk("users/login", async ({ email, passwor
     }
 }
 )
-export const getUserDetails = async () => {
-    // const { userToken } = getSate()
-    // try {
-    //     const config = {
-    //         header: {
-    //             Authorization: `Bearer ${userToken}`,
-    //             'Content-Type': 'application/json'
-    //         },
-    //     }
-    //     const { data } = await axios.post(`${BASE_URL}/profile`, config);
-    //     dispatch(getUser(data))
-    //     return data
-    // } catch (error) {
-    //     console.log(error)
-    // }
+
+export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg, { rejectWithValue, getState }) => {
+    const { user }: any = getState()
+    console.log("user:", user)
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.userToken}`,
+                'Content-Type': 'application/json'
+            },
+        }
+        const { data } = await axios.post(`${BASE_URL}/profile`, config);
+        console.log(data)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
 }
+)
 
 // export const updateUserProfile = async ( getSate) => {
 //     const user = getSate()
@@ -77,16 +79,6 @@ export const getUserDetails = async () => {
 //         console.log(error)
 //     }
 // }
-
-const setAuthToken = (token: string | boolean | null | undefined) => {
-    if (token) {
-        // Apply authorization token to every request if logged in
-        axios.defaults.headers.common["Authorization"] = token;
-    } else {
-        // Delete auth header
-        delete axios.defaults.headers.common["Authorization"];
-    }
-};
 
 // export const logout = () => {
 //     localStorage.removeItem("userToken");

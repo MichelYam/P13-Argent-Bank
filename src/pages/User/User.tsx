@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Account } from '../../components/Account/Account';
-import { getUserDetails } from '../../features/user/userActions';
+import { IData } from '../../features/user/User';
+import { getUserDetails, IUser } from '../../features/user/userActions';
 import { selectUser } from '../../utils/selector';
 import './Style.css';
 
@@ -22,6 +23,16 @@ const accountData = [
         description: "Available Balance"
     }
 ]
+
+interface IDataUser {
+    user: {
+        isAuthenticated: boolean,
+        loading: boolean,
+        userInfo: IUser | null,
+        userToken: string | null,
+        error: null,
+    }
+}
 export const User: React.FC = () => {
 
     const [name, setName] = useState({
@@ -29,18 +40,6 @@ export const User: React.FC = () => {
         lastName: ""
     })
     const [editMode, setEditMode] = useState(false);
-    const dispatch = useDispatch()
-    const { userToken, userInfo } = useSelector(selectUser)
-    // console.log(userInfo)
-    // console.log(userToken)
-    useEffect(() => {
-        const fetchData = async () => {
-            if (userToken) {
-                // dispatch(await getUserDetails());
-            }
-        }
-        fetchData()
-    }, [dispatch, userToken])
 
     const toggleEdit = () => {
         setEditMode(!editMode)
@@ -55,11 +54,14 @@ export const User: React.FC = () => {
     const handleSubmit = () => {
         // dispatch(updateUserProfile())
     }
+    const test: IData = useSelector(selectUser)
+    console.log(test)
+    // const fullName = userInfo.firstName.concat(userInfo.lastName)
     return (
         <main className="main bg-dark">
             <div className="header">
                 {!editMode ? <>
-                    <h1>Welcome back<br />Tony Jarvis!</h1>
+                    <h1>Welcome back<br />test</h1>
                     <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
                 </>
                     :

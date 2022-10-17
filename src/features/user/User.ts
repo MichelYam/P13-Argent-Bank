@@ -1,9 +1,5 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import { userLogin } from './userActions'
-// initialize userToken from local storage
-// const userToken = localStorage.getItem('userToken')
-//     ? localStorage.getItem('userToken')
-//     : null
+import { createSlice } from "@reduxjs/toolkit";
+import { userLogin, getUserDetails, IUser } from './userActions'
 
 const initialState = {
     isAuthenticated: false,
@@ -12,14 +8,23 @@ const initialState = {
     userToken: localStorage.getItem('userToken') || null,
     error: null,
 }
-
+export interface IData {
+    isAuthenticated: boolean,
+    loading: boolean,
+    userInfo: IUser | null,
+    userToken: string | null,
+    error: {} | null,
+}
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setToken: (state, action) => { state.userToken = action.payload },
-        getUser: (state, action) => {
-            state.userInfo = action.payload
+        logout: (state) => {
+            localStorage.removeItem('userToken')
+            state.loading = false
+            state.userInfo = null
+            state.userToken = null
+            state.error = null
         },
     },
     extraReducers: (builder) => {
@@ -29,14 +34,26 @@ const userSlice = createSlice({
         })
         builder.addCase(userLogin.fulfilled, (state, { payload }) => {
             state.loading = false
-            state.userInfo = payload
+            // state.userInfo = payload
             state.userToken = payload.body.token
         })
         builder.addCase(userLogin.rejected, (state, { payload }) => {
             state.loading = false
             // state.error = payload
         })
+        builder.addCase(getUserDetails.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(getUserDetails.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.userInfo = payload
+        })
+        builder.addCase(getUserDetails.rejected, (state, { payload }) => {
+            state.loading = false
+            // state.error = payload
+        })
+
     }
 });
-export const { setToken, getUser } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer

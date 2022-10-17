@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigation } from '../Navigation/Navigation'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
-import { setToken } from '../../features/user/User';
+import { logout } from '../../features/user/User';
+import { getUserDetails } from '../../features/user/userActions';
+import { useAppDispatch } from '../../redux/store';
 
 
 export const Header = () => {
-    const { userInfo, userToken } = useSelector(selectUser);
-    const dispatch = useDispatch()
-    // useEffect(() => {
-    //     if (userToken) {
-    //         dispatch(getUserDetails());
-    //     }
-    // })
-
-    const logOut = () => {
-        localStorage.removeItem("userToken");
-        dispatch(setToken(""))
-    }
+    const { userToken } = useSelector(selectUser)
+    console.log(userToken)
+    const dispatch = useAppDispatch()
+    const logOut = () => { dispatch(logout()) }
+    useEffect(() => {
+        const fetchData = () => {
+            if (userToken) {
+                dispatch(getUserDetails());
+            }
+        }
+        fetchData()
+    }, [dispatch, userToken])
     return (
         <Navigation userToken={userToken} logout={logOut} />
     )
