@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '../redux/store';
 import { selectUser } from '../utils/selector' 
 
 export const PrivateRoute = () => {
-    const { userInfo } = useSelector(selectUser);
+    const { userInfo } = useAppSelector(selectUser);
     return (
         <>
             {!userInfo ?

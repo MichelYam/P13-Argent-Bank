@@ -5,13 +5,13 @@ const initialState = {
     isAuthenticated: false,
     loading: false,
     userInfo: null,
-    userToken: localStorage.getItem('userToken') || null,
+    userToken: sessionStorage.getItem('userToken') || null,
     error: null,
 }
-export interface IData {
+export interface IDataAPI {
     isAuthenticated: boolean,
     loading: boolean,
-    userInfo: IUser | null,
+    userInfo?: IUser | null,
     userToken: string | null,
     error: {} | null,
 }
@@ -20,7 +20,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            localStorage.removeItem('userToken')
+            sessionStorage.removeItem('userToken')
             state.loading = false
             state.userInfo = null
             state.userToken = null
@@ -46,7 +46,7 @@ const userSlice = createSlice({
         })
         builder.addCase(getUserDetails.fulfilled, (state, { payload }) => {
             state.loading = false
-            state.userInfo = payload
+            state.userInfo = payload.body
         })
         builder.addCase(getUserDetails.rejected, (state, { payload }) => {
             state.loading = false

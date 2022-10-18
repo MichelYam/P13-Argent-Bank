@@ -1,44 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Account } from '../../components/Account/Account';
-import { IData } from '../../features/user/User';
-import { getUserDetails, IUser } from '../../features/user/userActions';
+import React, { useState } from 'react';
+//redux
 import { selectUser } from '../../utils/selector';
+
+import { Account } from '../../components/Account/Account';
+
+//data mock
+import { UserAccountMock } from '../../data/UserAccountMock'
+
 import './Style.css';
+import { useAppSelector } from '../../redux/store';
+import { IDataAPI } from '../../features/user/User';
 
-const accountData = [
-    {
-        title: "Argent Bank Checking (x8349)",
-        amount: '$2,082.79',
-        description: "Available Balance"
-    },
-    {
-        title: "Argent Bank Savings (x6712)",
-        amount: '$10,928.42',
-        description: "Available Balance"
-    },
-    {
-        title: "Argent Bank Credit Card (x8349)",
-        amount: '$184.30',
-        description: "Available Balance"
-    }
-]
-
-interface IDataUser {
-    user: {
-        isAuthenticated: boolean,
-        loading: boolean,
-        userInfo: IUser | null,
-        userToken: string | null,
-        error: null,
-    }
-}
 export const User: React.FC = () => {
-
+    const { userInfo }: IDataAPI = useAppSelector(selectUser)
     const [name, setName] = useState({
         firstName: "",
         lastName: ""
     })
+
+    let fullName = "";
+    if (userInfo !== null) {
+        fullName = [userInfo["firstName"], userInfo["lastName"]].join(' ')
+    }
     const [editMode, setEditMode] = useState(false);
 
     const toggleEdit = () => {
@@ -54,14 +37,11 @@ export const User: React.FC = () => {
     const handleSubmit = () => {
         // dispatch(updateUserProfile())
     }
-    const test: IData = useSelector(selectUser)
-    console.log(test)
-    // const fullName = userInfo.firstName.concat(userInfo.lastName)
     return (
         <main className="main bg-dark">
             <div className="header">
                 {!editMode ? <>
-                    <h1>Welcome back<br />test</h1>
+                    <h1>Welcome back<br />{fullName}</h1>
                     <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
                 </>
                     :
@@ -71,13 +51,15 @@ export const User: React.FC = () => {
                             <input type="text" onChange={handleChangeValue} value={name.firstName} />
                             <label htmlFor="lastName">Last Name</label>
                             <input type="text" onChange={handleChangeValue} value={name.lastName} />
+                            <button className="edit-button" onClick={toggleEdit}>Cancel</button>
+                            <button className="edit-button" >Submit</button>
                         </form>
                     </>
                 }
             </div>
             <h2 className="sr-only">Accounts</h2>
             {
-                accountData.map((account) =>
+                UserAccountMock.map((account) =>
                     <Account key={account.title} title={account.title} amount={account.description} description={account.description} />
                 )
             }

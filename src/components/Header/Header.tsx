@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { Navigation } from '../Navigation/Navigation'
-import { useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
 import { logout } from '../../features/user/User';
 import { getUserDetails } from '../../features/user/userActions';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 
 export const Header = () => {
-    const { userToken } = useSelector(selectUser)
-    console.log(userToken)
+    const { userToken } = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const logOut = () => { dispatch(logout()) }
     useEffect(() => {

@@ -1,15 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { redirect } from 'react-router-dom'
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { RootState } from "../../redux/store";
 
 const BASE_URL = "http://localhost:3001/api/v1/user";
 export interface IUser {
-    email: string,
-    password: string,
-    firstName?: string ;
-    lastName?: string ;
+    email?: string,
+    password?: string,
+    firstName?: string | null;
+    lastName?: string | null;
     remember?: boolean;
 }
 export const userLogin = createAsyncThunk("user/login", async ({ email, password }: IUser, { rejectWithValue }) => {
@@ -28,7 +25,7 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
         )
         let data = await response.json()
         console.log("response", data)
-        localStorage.setItem("userToken", data.token)
+        sessionStorage.setItem("userToken", data.body.token)
         return data;
     } catch (error) {
         // if (error.response && error.response.data.message) {
@@ -47,17 +44,15 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
 
 export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg, { rejectWithValue, getState }) => {
     const { user }: any = getState()
-    console.log("user:", user)
     try {
         const config = {
             headers: {
                 Authorization: `Bearer ${user.userToken}`,
-                'Content-Type': 'application/json'
             },
         }
-        const { data } = await axios.post(`${BASE_URL}/profile`, config);
-        console.log(data)
-        return data
+        const { data } = await axios.post(`${BASE_URL}/profile`, arg, config);
+        console.log("data: ", data)
+        return data 
     } catch (error) {
         console.log(error)
     }
@@ -79,18 +74,3 @@ export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg
 //         console.log(error)
 //     }
 // }
-
-// export const logout = () => {
-//     localStorage.removeItem("userToken");
-//     // setAuthToken(false);
-//     // redirect("/");
-// };
-
-function dispatch(arg0: { payload: any; type: string; }) {
-    throw new Error("Function not implemented.");
-}
-
-function getUser(data: any): { payload: any; type: string; } {
-    throw new Error("Function not implemented.");
-}
-

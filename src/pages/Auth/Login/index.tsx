@@ -2,12 +2,13 @@ import React from 'react';
 import "./Style.css";
 
 import Form from "../../../components/Form/index";
-import { useDispatch, useSelector } from 'react-redux';
+
 import { Navigate } from 'react-router-dom';
 import { selectUser } from '../../../utils/selector';
+import { useAppSelector } from '../../../redux/store';
 
 const SignIn = () => {
-  const user = useSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
   if (user.userToken) return <Navigate to="/user" />;
   return (

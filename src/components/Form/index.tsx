@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import "./Style.css";
 import { Link, Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 import { selectUser } from '../../utils/selector';
 import { userLogin } from '../../features/user/userActions';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 
 interface FormInterface {
@@ -19,7 +18,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         password: '',
         remember: false,
     })
-    const { userToken } = useSelector(selectUser);
+    const { userToken } = useAppSelector(selectUser);
     // const [errors, setErrors] = useState([]);
     const dispatch = useAppDispatch()
 
@@ -31,17 +30,19 @@ export default function Index({ isLogin, title }: FormInterface) {
         });
     };
 
-    const submitFormLogin = (event: React.SyntheticEvent) => {
+    const submitForm = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        dispatch(userLogin(data));
+        if (isLogin) {
+            dispatch(userLogin(data));
+
+        } else {
+            // dispatch(userRegister(data))
+        }
     }
-    const submitFormRegister = (event: React.SyntheticEvent) => {
-        event.preventDefault();
-        // dispatch(userRegister(data))
-    }
+
     if (userToken) return <Navigate to={'/user'} />;
     return (
-        <form onSubmit={isLogin ? submitFormLogin : submitFormRegister}>
+        <form onSubmit={submitForm}>
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
