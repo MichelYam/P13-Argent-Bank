@@ -22,15 +22,15 @@ export default function Index({ isLogin, title }: FormInterface) {
     // const [errors, setErrors] = useState([]);
     const dispatch = useAppDispatch()
 
-    const handleChangeValue = (event: React.FormEvent<HTMLInputElement>): void => {
+    const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
             ...data,
-            [event.currentTarget.id]:
-                event.currentTarget.id === "remember" ? !data.remember : event.currentTarget.value,
+            [event.target.id]:
+                event.target.id === "remember" ? !data.remember : event.target.value,
         });
     };
 
-    const submitForm = (event: React.SyntheticEvent) => {
+    const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (isLogin) {
             dispatch(userLogin(data));

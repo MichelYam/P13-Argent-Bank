@@ -8,14 +8,16 @@ import { Account } from '../../components/Account/Account';
 import { UserAccountMock } from '../../data/UserAccountMock'
 
 import './Style.css';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';
+import { updateUserProfile } from '../../features/user/userActions';
 
 export const User: React.FC = () => {
     const { userInfo }: IDataAPI = useAppSelector(selectUser)
-    const [name, setName] = useState({
-        firstName: "",
-        lastName: ""
+    const dispatch = useAppDispatch()
+    const [input, setInput] = useState({
+        firstName: '',
+        lastName: '',
     })
 
     let fullName = "";
@@ -28,14 +30,16 @@ export const User: React.FC = () => {
         setEditMode(!editMode)
     }
 
-    const handleChangeValue = (event: React.FormEvent<HTMLInputElement>) => {
-        setName({
-            ...name,
-            [event.currentTarget.id]: event.currentTarget.name
+    const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInput({
+            ...input,
+            [event.target.id]: event.target.value
         });
     }
-    const handleSubmit = () => {
-        // dispatch(updateUserProfile())
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setEditMode(false)
+        dispatch(updateUserProfile(input))
     }
     return (
         <main className="main bg-dark">
@@ -48,11 +52,13 @@ export const User: React.FC = () => {
                     <>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor="firstName">First Name</label>
-                            <input type="text" onChange={handleChangeValue} value={name.firstName} />
+                            <input type="text" id='firstName' value={input.firstName} onChange={handleChangeValue} />
+
                             <label htmlFor="lastName">Last Name</label>
-                            <input type="text" onChange={handleChangeValue} value={name.lastName} />
+                            <input type="text" id='lastName' value={input.lastName} onChange={handleChangeValue} />
+
                             <button className="edit-button" onClick={toggleEdit}>Cancel</button>
-                            <button className="edit-button" >Submit</button>
+                            <button type='submit' className="edit-button" >Submit</button>
                         </form>
                     </>
                 }

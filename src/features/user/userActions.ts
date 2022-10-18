@@ -24,7 +24,7 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
             }
         )
         let data = await response.json()
-        console.log("response", data)
+        // console.log("login", data)
         sessionStorage.setItem("userToken", data.body.token)
         return data;
     } catch (error) {
@@ -51,26 +51,27 @@ export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg
             },
         }
         const { data } = await axios.post(`${BASE_URL}/profile`, arg, config);
-        console.log("data: ", data)
-        return data 
+        // console.log("getUser: ", data)
+        return data
     } catch (error) {
         console.log(error)
     }
 }
 )
 
-// export const updateUserProfile = async ( getSate) => {
-//     const user = getSate()
-//     try {
-//         const config = {
-//             header: {
-//                 Authorization: `Bearer ${user.userToken}`,
-//                 'Content-Type': 'application/json'
-//             },
-//         }
-//         const { data } = await axios.post(`${BASE_URL}/profile`, config);
-//         return data
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+export const updateUserProfile = createAsyncThunk("user/updateUserProfile", async ({ firstName, lastName }: IUser, { rejectWithValue, getState }) => {
+    const { user }: any = getState()
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.userToken}`,
+            },
+        }
+        const { data } = await axios.put(`${BASE_URL}/profile`, { firstName, lastName }, config);
+        // console.log("update:",data)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+)

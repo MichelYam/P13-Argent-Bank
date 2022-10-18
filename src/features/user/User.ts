@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, getUserDetails, IUser } from './userActions'
+import { userLogin, getUserDetails, updateUserProfile, IUser } from './userActions'
 
 const initialState = {
     isAuthenticated: false,
@@ -28,30 +28,47 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(userLogin.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        builder.addCase(userLogin.fulfilled, (state, { payload }) => {
-            state.loading = false
-            // state.userInfo = payload
-            state.userToken = payload.body.token
-        })
-        builder.addCase(userLogin.rejected, (state, { payload }) => {
-            state.loading = false
-            // state.error = payload
-        })
-        builder.addCase(getUserDetails.pending, (state) => {
-            state.loading = true
-        })
-        builder.addCase(getUserDetails.fulfilled, (state, { payload }) => {
-            state.loading = false
-            state.userInfo = payload.body
-        })
-        builder.addCase(getUserDetails.rejected, (state, { payload }) => {
-            state.loading = false
-            // state.error = payload
-        })
+        //Login
+        builder
+            .addCase(userLogin.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(userLogin.fulfilled, (state, { payload }) => {
+                state.loading = false
+                // state.userInfo = payload
+                state.userToken = payload.body.token
+            })
+
+            .addCase(userLogin.rejected, (state, { payload }) => {
+                state.loading = false
+                // state.error = payload
+            })
+
+            //Get user
+            .addCase(getUserDetails.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getUserDetails.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.userInfo = payload.body
+            })
+            .addCase(getUserDetails.rejected, (state, { payload }) => {
+                state.loading = false
+                // state.error = payload
+            })
+            //Update user
+            .addCase(updateUserProfile.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(updateUserProfile.fulfilled, (state, { payload }) => {
+                state.loading = true
+                state.userInfo = payload.body
+            })
+            .addCase(updateUserProfile.rejected, (state, { payload }) => {
+                state.loading = true
+                // state.error = payload
+            })
 
     }
 });
