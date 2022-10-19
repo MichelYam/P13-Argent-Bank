@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, getUserDetails, updateUserProfile, IUser } from './userActions'
+import { userLogin, userRegister, getUserDetails, updateUserProfile, IUser } from './userActions'
 
 const initialState = {
     isAuthenticated: false,
@@ -44,7 +44,20 @@ const userSlice = createSlice({
                 state.loading = false
                 // state.error = payload
             })
+            //Register
+            .addCase(userRegister.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(userRegister.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.userToken = payload?.body.token
+            })
 
+            .addCase(userRegister.rejected, (state, { payload }) => {
+                state.loading = false
+                // state.error = payload
+            })
             //Get user
             .addCase(getUserDetails.pending, (state) => {
                 state.loading = true

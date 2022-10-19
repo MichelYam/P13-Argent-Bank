@@ -5,8 +5,8 @@ const BASE_URL = "http://localhost:3001/api/v1/user";
 export interface IUser {
     email?: string,
     password?: string,
-    firstName?: string | null;
-    lastName?: string | null;
+    firstName?: string;
+    lastName?: string;
     remember?: boolean;
 }
 export const userLogin = createAsyncThunk("user/login", async ({ email, password }: IUser, { rejectWithValue }) => {
@@ -75,3 +75,30 @@ export const updateUserProfile = createAsyncThunk("user/updateUserProfile", asyn
     }
 }
 )
+
+
+export const userRegister = createAsyncThunk('user/userRegister', async ({ lastName, firstName, email, password }: IUser, { rejectWithValue }) => {
+    try {
+        const response = await fetch(`${BASE_URL}/signup`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    lastName, firstName, email, password
+                }),
+            }
+        )
+        let data = await response.json()
+        // console.log("login", data)
+        sessionStorage.setItem("userToken", data.body.token)
+        return data;
+    } catch (error) {
+        if (typeof error === 'object' && error !== null) {
+            console.log(error.toString());
+        } else {
+            console.log('Unexpected error', error);
+        }
+    }
+})

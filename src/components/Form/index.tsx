@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "./Style.css";
 import { Link, Navigate } from 'react-router-dom'
 import { selectUser } from '../../utils/selector';
-import { userLogin } from '../../features/user/userActions';
+import { userLogin, userRegister } from '../../features/user/userActions';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 
@@ -16,6 +16,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         firstName: '',
         email: '',
         password: '',
+        confirmPassword: '',
         remember: false,
     })
     const { loading, error } = useAppSelector(selectUser);
@@ -36,7 +37,9 @@ export default function Index({ isLogin, title }: FormInterface) {
             dispatch(userLogin(data));
 
         } else {
-            // dispatch(userRegister(data))
+            if (data.password === data.confirmPassword) {
+                dispatch(userRegister(data))
+            }
         }
     }
 
@@ -48,19 +51,20 @@ export default function Index({ isLogin, title }: FormInterface) {
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
             </div>
-            <div className="input-wrapper">
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
-            </div>
             {
                 isLogin ? <>
+                    <div className="input-wrapper">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
+                    </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" onChange={handleChangeValue} />
                         <label htmlFor="remember-me"> Remember me</label>
                     </div>
                     {/* <a href="./user.html" className="sign-in-button">Sign In</a> */}
                     {/* <button className="sign-in-button">Sign In</button> */}
-                </> :
+                </>
+                    :
                     <>
                         <div className="input-wrapper">
                             <label htmlFor="password">First Name</label>
@@ -71,8 +75,12 @@ export default function Index({ isLogin, title }: FormInterface) {
                             <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} />
                         </div>
                         <div className="input-wrapper">
+                            <label htmlFor="password">Password</label>
+                            <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
+                        </div>
+                        <div className="input-wrapper">
                             <label htmlFor="password">Confirm Password</label>
-                            <input type="password" id="confirmPassword" value={data.email} onChange={handleChangeValue} />
+                            <input type="password" id="confirmPassword" value={data.confirmPassword} onChange={handleChangeValue} />
                         </div>
                         <Link to={'/signin'}>I already have an account</Link>
                     </>

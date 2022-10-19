@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 
 export const Header = () => {
-    const { userToken } = useAppSelector(selectUser)
+    const { userInfo, userToken } = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const logOut = () => { dispatch(logout()) }
     useEffect(() => {
@@ -19,6 +19,6 @@ export const Header = () => {
         fetchData()
     }, [dispatch, userToken])
     return (
-        <Navigation userToken={userToken} logout={logOut} />
+        <Navigation userInfo={userInfo} userToken={userToken} logout={logOut} />
     )
 }
