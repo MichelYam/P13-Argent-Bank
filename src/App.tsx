@@ -9,8 +9,9 @@ import { Footer } from './components/Footer/Footer';
 
 import Home from './pages/Home/Home';
 import SignIn from './pages/Auth/Login';
+import SignUn from './pages/Auth/Register';
 import { User } from './pages/User/User';
-import { PrivateRoute } from "./pages/PrivateRoute";
+import ProtectedRoute from "./pages/PrivateRoute";
 
 
 
@@ -21,9 +22,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<SignIn />} />
-        {/* <Route element={<PrivateRoute />}> */}
+        <Route path='/signup' element={<SignUn />} />
+        <Route element={<ProtectedRoute />}>
           <Route path='/user' element={<User />} />
-        {/* </Route> */}
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

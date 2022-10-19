@@ -18,7 +18,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         password: '',
         remember: false,
     })
-    const { userToken } = useAppSelector(selectUser);
+    const { loading, error } = useAppSelector(selectUser);
     // const [errors, setErrors] = useState([]);
     const dispatch = useAppDispatch()
 
@@ -40,9 +40,10 @@ export default function Index({ isLogin, title }: FormInterface) {
         }
     }
 
-    if (userToken) return <Navigate to={'/user'} />;
+    // if (userToken) return <Navigate to={'/user'} />;
     return (
         <form onSubmit={submitForm}>
+            {error && <p>{error}</p>}
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />

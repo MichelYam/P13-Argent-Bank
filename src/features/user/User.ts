@@ -15,6 +15,7 @@ export interface IDataAPI {
     userToken: string | null,
     error: {} | null,
 }
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -28,16 +29,15 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        //Login
         builder
+            //Login
             .addCase(userLogin.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
             .addCase(userLogin.fulfilled, (state, { payload }) => {
                 state.loading = false
-                // state.userInfo = payload
-                state.userToken = payload.body.token
+                state.userToken = payload?.body.token
             })
 
             .addCase(userLogin.rejected, (state, { payload }) => {
@@ -51,23 +51,22 @@ const userSlice = createSlice({
             })
             .addCase(getUserDetails.fulfilled, (state, { payload }) => {
                 state.loading = false
-                state.userInfo = payload.body
+                state.userInfo = payload?.body
             })
-            .addCase(getUserDetails.rejected, (state, { payload }) => {
+            .addCase(getUserDetails.rejected, (state, { payload }: any) => {
                 state.loading = false
-                // state.error = payload
             })
+
             //Update user
             .addCase(updateUserProfile.pending, (state) => {
                 state.loading = true
             })
             .addCase(updateUserProfile.fulfilled, (state, { payload }) => {
-                state.loading = true
-                state.userInfo = payload.body
+                state.loading = false
+                state.userInfo = payload?.body
             })
-            .addCase(updateUserProfile.rejected, (state, { payload }) => {
-                state.loading = true
-                // state.error = payload
+            .addCase(updateUserProfile.rejected, (state, { payload }: any) => {
+                state.loading = false
             })
 
     }
