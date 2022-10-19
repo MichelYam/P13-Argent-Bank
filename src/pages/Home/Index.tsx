@@ -1,7 +1,7 @@
 import React from 'react';
 import './Style.css';
 
-import { Feature } from '../../components/Features/Feature';
+import { Feature } from '../../components/Features/Index';
 
 export default function Home() {
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Navigation } from '../Navigation/Navigation'
+import { Navigation } from '../Navigation/Index'
 import { selectUser } from '../../utils/selector';
 import { logout } from '../../features/user/User';
 import { getUserDetails } from '../../features/user/userActions';

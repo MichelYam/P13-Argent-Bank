@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //redux
 import { selectUser } from '../../utils/selector';
 
-import { Account } from '../../components/Account/Account';
+import { Account } from '../../components/Account/Index';
 
 //data mock
 import { UserAccountMock } from '../../data/UserAccountMock'
