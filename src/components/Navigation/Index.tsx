@@ -3,6 +3,7 @@ import "./Style.css";
 import { Link, redirect } from "react-router-dom";
 import { IUser } from '../../features/user/userActions';
 // import { logout } from '../../features/user/userActions';
+import PropTypes from "prop-types";
 
 interface INavigation {
     userToken: string | null,
@@ -50,7 +51,9 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
         </nav >
     )
 }
-function setToken(arg0: string): any {
-    throw new Error('Function not implemented.');
-}
 
+Navigation.propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    userToken: PropTypes.string.isRequired,
+    logout: PropTypes.func.isRequired,
+}

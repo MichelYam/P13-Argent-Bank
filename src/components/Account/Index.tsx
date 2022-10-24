@@ -1,5 +1,6 @@
 import React from 'react'
 import './Style.css';
+import PropTypes from "prop-types";
 
 
 
@@ -22,4 +23,10 @@ export const Account: React.FC<AccountProps> = ({ title, amount, description }) 
             </div>
         </section>
     )
+}
+
+Account.propTypes = {
+    title: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
 }

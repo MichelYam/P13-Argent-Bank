@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import "./Style.css";
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+//selector
 import { selectUser } from '../../utils/selector';
+//Redux
 import { userLogin, userRegister } from '../../features/user/userActions';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 
+import PropTypes from "prop-types";
 
+import "./Style.css";
 interface FormInterface {
     isLogin: boolean,
     title: string
@@ -61,8 +64,6 @@ export default function Index({ isLogin, title }: FormInterface) {
                         <input type="checkbox" id="remember-me" onChange={handleChangeValue} />
                         <label htmlFor="remember-me"> Remember me</label>
                     </div>
-                    {/* <a href="./user.html" className="sign-in-button">Sign In</a> */}
-                    {/* <button className="sign-in-button">Sign In</button> */}
                 </>
                     :
                     <>
@@ -88,4 +89,10 @@ export default function Index({ isLogin, title }: FormInterface) {
             <button className="sign-in-button">{title}</button>
         </form >
     )
+}
+
+
+Index.propTypes = {
+    isLogin: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
 }
