@@ -15,3 +15,4 @@ export const UserAccountMock  = [
         description: "Available Balance"
     }
 ]
+

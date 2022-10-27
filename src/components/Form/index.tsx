@@ -46,7 +46,6 @@ export default function Index({ isLogin, title }: FormInterface) {
         }
     }
 
-    // if (userToken) return <Navigate to={'/user'} />;
     return (
         <form onSubmit={submitForm}>
             {error && <p>{error}</p>}
@@ -69,11 +68,11 @@ export default function Index({ isLogin, title }: FormInterface) {
                     <>
                         <div className="input-wrapper">
                             <label htmlFor="password">First Name</label>
-                            <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} />
+                            <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} required />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Last Name</label>
-                            <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} />
+                            <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} required />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
@@ -81,7 +80,7 @@ export default function Index({ isLogin, title }: FormInterface) {
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Confirm Password</label>
-                            <input type="password" id="confirmPassword" value={data.confirmPassword} onChange={handleChangeValue} />
+                            <input type="password" id="confirmPassword" value={data.confirmPassword} onChange={handleChangeValue} required />
                         </div>
                         <Link to={'/signin'}>I already have an account</Link>
                     </>

@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import "./Style.css";
-import { Link, redirect } from "react-router-dom";
+import React from 'react';
+import { Link } from "react-router-dom";
 import { IUser } from '../../features/user/userActions';
-// import { logout } from '../../features/user/userActions';
+
 import PropTypes from "prop-types";
+import "./Style.css";
 
 interface INavigation {
-    userToken: string | null,
-    userInfo: IUser | null,
+    userInfo?: IUser | null,
+    isAuthenticated?: boolean,
     logout: () => void
 }
 
-export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout }) => {
+export const Navigation: React.FC<INavigation> = ({ userInfo, isAuthenticated, logout }) => {
 
     return (
         <nav className="main-nav">
@@ -24,7 +24,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
             <div>
-                {!userToken ?
+                {!isAuthenticated ?
                     <>
                         <Link className="main-nav-item" to={`/signin`}>
                             <i className="fa fa-user-circle"></i>
@@ -53,7 +53,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
 }
 
 Navigation.propTypes = {
-    userInfo: PropTypes.object.isRequired,
-    userToken: PropTypes.string.isRequired,
+    userInfo: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
     logout: PropTypes.func.isRequired,
 }

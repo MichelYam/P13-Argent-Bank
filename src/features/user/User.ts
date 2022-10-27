@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, userRegister, getUserDetails, updateUserProfile, IUser } from './userActions'
-
+import type { PayloadAction } from '@reduxjs/toolkit'
 const initialState = {
     isAuthenticated: false,
     loading: false,
@@ -13,7 +13,7 @@ export interface IDataAPI {
     loading: boolean,
     userInfo?: IUser | null,
     userToken: string | null,
-    error: {} | null,
+    error: string | null,
 }
 
 const userSlice = createSlice({
@@ -26,6 +26,7 @@ const userSlice = createSlice({
             state.userInfo = null
             state.userToken = null
             state.error = null
+            state.isAuthenticated = false
         },
     },
     extraReducers: (builder) => {
@@ -38,8 +39,8 @@ const userSlice = createSlice({
             .addCase(userLogin.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.userToken = payload?.body.token
+                state.isAuthenticated = true
             })
-
             .addCase(userLogin.rejected, (state, { payload }) => {
                 state.loading = false
                 // state.error = payload

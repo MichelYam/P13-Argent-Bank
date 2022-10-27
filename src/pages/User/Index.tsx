@@ -7,10 +7,11 @@ import { Account } from '../../components/Account/Index';
 //data mock
 import { UserAccountMock } from '../../data/UserAccountMock'
 
-import './Style.css';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
+
+import './Style.css';
 
 export const User: React.FC = () => {
     const { userInfo }: IDataAPI = useAppSelector(selectUser)
