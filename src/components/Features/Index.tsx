@@ -11,7 +11,7 @@ interface FeatureProps {
 export const Feature: React.FC<FeatureProps> = ({ image, icon, title, children }) => {
     return (
         <div className="feature-item">
-            <img src={image} alt={`${icon} icon`} className="feature-icon" />
+            <img src={`./img/${image}`} alt={`${icon} icon`} className="feature-icon" />
             <h3 className="feature-item-title">{title}</h3>
             <p>
                 {children}

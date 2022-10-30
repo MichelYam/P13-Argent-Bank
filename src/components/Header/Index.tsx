@@ -7,18 +7,18 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 
 export const Header = () => {
-    const { userInfo, isAuthenticated } = useAppSelector(selectUser)
+    const { userInfo, userToken } = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const logOut = () => { dispatch(logout()) }
     useEffect(() => {
         const fetchData = () => {
-            if (isAuthenticated) {
+            if (userToken) {
                 dispatch(getUserDetails());
             }
         }
         fetchData()
-    }, [dispatch, isAuthenticated])
+    }, [dispatch, userToken])
     return (
-        <Navigation userInfo={userInfo} isAuthenticated={isAuthenticated} logout={logOut} />
+        <Navigation userInfo={userInfo} userToken={userToken} logout={logOut} />
     )
 }

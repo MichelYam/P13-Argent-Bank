@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, userRegister, getUserDetails, updateUserProfile, IUser } from './userActions'
-import type { PayloadAction } from '@reduxjs/toolkit'
+
 const initialState = {
     isAuthenticated: false,
     loading: false,
@@ -53,8 +53,9 @@ const userSlice = createSlice({
             .addCase(userRegister.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.userToken = payload?.body.token
-            })
+                state.isAuthenticated = true
 
+            })
             .addCase(userRegister.rejected, (state, { payload }) => {
                 state.loading = false
                 // state.error = payload

@@ -5,7 +5,7 @@ import { selectUser } from '../../utils/selector';
 import { Account } from '../../components/Account/Index';
 
 //data mock
-import { UserAccountMock } from '../../data/UserAccountMock'
+import { UserAccountMock } from '../../data/DataMock'
 
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';

@@ -12,20 +12,12 @@ export interface IUser {
 }
 export const userLogin = createAsyncThunk("user/login", async ({ email, password }: IUser, { rejectWithValue }) => {
     try {
-        const response = await fetch(`${BASE_URL}/login`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
-            }
-        )
-        let data = await response.json()
-        // console.log("login", data)
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
         sessionStorage.setItem("userToken", data.body.token)
         return data;
     } catch (error) {
@@ -80,18 +72,13 @@ export const updateUserProfile = createAsyncThunk("user/updateUserProfile", asyn
 
 export const userRegister = createAsyncThunk('user/userRegister', async ({ lastName, firstName, email, password }: IUser, { rejectWithValue }) => {
     try {
-        const response = await fetch(`${BASE_URL}/signup`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    lastName, firstName, email, password
-                }),
-            }
-        )
-        let data = await response.json()
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+        const { data } = await axios.post(`${BASE_URL}/signup`, { lastName, firstName, email, password }, config);
         // console.log("login", data)
         sessionStorage.setItem("userToken", data.body.token)
         return data;

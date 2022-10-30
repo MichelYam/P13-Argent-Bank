@@ -1,9 +1,10 @@
-import React from 'react';
+//export data mock features
+import { featuresMock } from '../../data/DataMock'
+//components
+import { Feature } from '../../components/Features/Index';
+//style
 import './Style.css';
 
-import { Feature } from '../../components/Features/Index';
-
-//export data mock features
 export default function Home() {
     return (
         <div className="App">
@@ -19,18 +20,13 @@ export default function Home() {
                 </div>
                 <section className="features">
                     <h2 className="sr-only">Features</h2>
-                    {/* map(()=>) */}
-                    <Feature title='You are our #1 priority' image="./img/icon-chat.png" icon="chat">
-                        Need to talk to a representative? You can get in touch through our
-                        24/7 chat or through a phone call in less than 5 minutes.
-                    </Feature>
-                    <Feature title='More savings means higher rates' image="./img/icon-money.png" icon="money">
-                        The more you save with us, the higher your interest rate will be!
-                    </Feature>
-                    <Feature title='Security you can trust' image="./img/icon-security.png" icon="security">
-                        We use top of the line encryption to make sure your data and money
-                        is always safe.
-                    </Feature>
+                    {
+                        featuresMock.map((feature) =>
+                            <Feature key={feature.title} title={feature.title} icon={feature.icon} image={feature.image}>
+                                {feature.description}
+                            </Feature>
+                        )
+                    }
                 </section>
             </main>
         </div>

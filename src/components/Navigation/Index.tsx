@@ -7,11 +7,11 @@ import "./Style.css";
 
 interface INavigation {
     userInfo?: IUser | null,
-    isAuthenticated?: boolean,
+    userToken?: string | null,
     logout: () => void
 }
 
-export const Navigation: React.FC<INavigation> = ({ userInfo, isAuthenticated, logout }) => {
+export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout }) => {
 
     return (
         <nav className="main-nav">
@@ -24,7 +24,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, isAuthenticated, l
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
             <div>
-                {!isAuthenticated ?
+                {!userToken ?
                     <>
                         <Link className="main-nav-item" to={`/signin`}>
                             <i className="fa fa-user-circle"></i>
@@ -54,6 +54,6 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, isAuthenticated, l
 
 Navigation.propTypes = {
     userInfo: PropTypes.object,
-    isAuthenticated: PropTypes.bool,
+    userToken: PropTypes.string,
     logout: PropTypes.func.isRequired,
 }
