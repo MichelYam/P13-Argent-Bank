@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import './Style.css'
+import styles from './Style.module.css'
 interface FeatureProps {
     title: string,
     icon: string,
@@ -10,9 +10,9 @@ interface FeatureProps {
 
 export const Feature: React.FC<FeatureProps> = ({ image, icon, title, children }) => {
     return (
-        <div className="feature-item">
-            <img src={`./img/${image}`} alt={`${icon} icon`} className="feature-icon" />
-            <h3 className="feature-item-title">{title}</h3>
+        <div className={styles["feature-item"]}>
+            <img src={`./img/${image}`} alt={`${icon} icon`} className={styles["feature-icon"]} />
+            <h3 className={styles["feature-item-title"]}>{title}</h3>
             <p>
                 {children}
             </p>

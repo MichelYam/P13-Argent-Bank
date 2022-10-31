@@ -1,7 +1,7 @@
 import React from 'react'
-import './Style.css';
 import PropTypes from "prop-types";
 
+import styles from './Style.module.css';
 
 
 interface AccountProps {
@@ -12,14 +12,14 @@ interface AccountProps {
 
 export const Account: React.FC<AccountProps> = ({ title, amount, description }) => {
     return (
-        <section className="account">
-            <div className="account-content-wrapper">
-                <h3 className="account-title">{title}</h3>
-                <p className="account-amount">{amount}</p>
-                <p className="account-amount-description">{description}</p>
+        <section className={styles.account}>
+            <div className={styles["account-content-wrapper"]}>
+                <h3 className={styles["account-title"]}>{title}</h3>
+                <p className={styles["account-amount"]}>{amount}</p>
+                <p className={styles["account-amount-description"]}>{description}</p>
             </div>
-            <div className="account-content-wrapper cta">
-                <button className="transaction-button">View transactions</button>
+            <div className={styles["account-content-wrapper cta"]}>
+                <button className={styles["transaction-button"]}>View transactions</button>
             </div>
         </section>
     )

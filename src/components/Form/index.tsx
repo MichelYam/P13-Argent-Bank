@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 import PropTypes from "prop-types";
 
-import "./Style.css";
+import styles from "./Style.module.css";
 interface FormInterface {
     isLogin: boolean,
     title: string
@@ -47,46 +47,50 @@ export default function Index({ isLogin, title }: FormInterface) {
     }
 
     return (
-        <form onSubmit={submitForm}>
-            {error && <p>{error}</p>}
-            <div className="input-wrapper">
-                <label htmlFor="email">Email</label>
-                <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
-            </div>
-            {
-                isLogin ? <>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
-                    </div>
-                    <div className="input-remember">
-                        <input type="checkbox" id="remember-me" onChange={handleChangeValue} />
-                        <label htmlFor="remember-me"> Remember me</label>
-                    </div>
-                </>
-                    :
-                    <>
-                        <div className="input-wrapper">
-                            <label htmlFor="password">First Name</label>
-                            <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} required />
-                        </div>
-                        <div className="input-wrapper">
-                            <label htmlFor="password">Last Name</label>
-                            <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} required />
-                        </div>
-                        <div className="input-wrapper">
+        <>
+            <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
+            <h1>{title}</h1>
+            <form onSubmit={submitForm}>
+                {error && <p>{error}</p>}
+                <div className={styles["input-wrapper"]}>
+                    <label htmlFor="email">Email</label>
+                    <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
+                </div>
+                {
+                    isLogin ? <>
+                        <div className={styles["input-wrapper"]}>
                             <label htmlFor="password">Password</label>
                             <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
                         </div>
-                        <div className="input-wrapper">
-                            <label htmlFor="password">Confirm Password</label>
-                            <input type="password" id="confirmPassword" value={data.confirmPassword} onChange={handleChangeValue} required />
+                        <div className={styles["input-remember"]}>
+                            <input type="checkbox" id="remember-me" onChange={handleChangeValue} />
+                            <label htmlFor="remember-me"> Remember me</label>
                         </div>
-                        <Link to={'/signin'}>I already have an account</Link>
                     </>
-            }
-            <button className="sign-in-button">{title}</button>
-        </form >
+                        :
+                        <>
+                            <div className={styles["input-wrapper"]}>
+                                <label htmlFor="password">First Name</label>
+                                <input type="text" id="firstName" value={data.firstName} onChange={handleChangeValue} required />
+                            </div>
+                            <div className={styles["input-wrapper"]}>
+                                <label htmlFor="password">Last Name</label>
+                                <input type="text" id="lastName" value={data.lastName} onChange={handleChangeValue} required />
+                            </div>
+                            <div className={styles["input-wrapper"]}>
+                                <label htmlFor="password">Password</label>
+                                <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
+                            </div>
+                            <div className={styles["input-wrapper"]}>
+                                <label htmlFor="password">Confirm Password</label>
+                                <input type="password" id="confirmPassword" value={data.confirmPassword} onChange={handleChangeValue} required />
+                            </div>
+                            <Link to={'/signin'}>I already have an account</Link>
+                        </>
+                }
+                <button className={styles["sign-in-button"]}>{title}</button>
+            </form >
+        </>
     )
 }
 

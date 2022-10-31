@@ -3,23 +3,23 @@ import { featuresMock } from '../../data/DataMock'
 //components
 import { Feature } from '../../components/Features/Index';
 //style
-import './Style.css';
+import styles from './Style.module.css';
 
 export default function Home() {
     return (
-        <div className="App">
+        <div className={styles.App}>
             <main>
-                <div className="hero">
-                    <section className="hero-content">
-                        <h2 className="sr-only">Promoted Content</h2>
-                        <p className="subtitle">No fees.</p>
-                        <p className="subtitle">No minimum deposit.</p>
-                        <p className="subtitle">High interest rates.</p>
-                        <p className="text">Open a savings account with Argent Bank today!</p>
+                <div className={styles.hero}>
+                    <section className={styles["hero-content"]}>
+                        <h2 className={styles["sr-only"]}>Promoted Content</h2>
+                        <p className={styles.subtitle}>No fees.</p>
+                        <p className={styles.subtitle}>No minimum deposit.</p>
+                        <p className={styles.subtitle}>High interest rates.</p>
+                        <p className={styles.text}>Open a savings account with Argent Bank today!</p>
                     </section>
                 </div>
-                <section className="features">
-                    <h2 className="sr-only">Features</h2>
+                <section className={styles.features}>
+                    <h2 className={styles["sr-only"]}>Features</h2>
                     {
                         featuresMock.map((feature) =>
                             <Feature key={feature.title} title={feature.title} icon={feature.icon} image={feature.image}>
