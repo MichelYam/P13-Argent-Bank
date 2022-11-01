@@ -46,3 +46,7 @@
 .sign-in-icon {
     font-size: 5rem;
 }
+
+.errMsg{
+    color: #f00c0c;
+}

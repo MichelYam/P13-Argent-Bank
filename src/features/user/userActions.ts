@@ -20,16 +20,11 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
         const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
         sessionStorage.setItem("userToken", data.body.token)
         return data;
-    } catch (error) {
-        // if (error.response && error.response.data.message) {
-        //     return rejectWithValue(error.response.data.message)
-        // } else {
-        //     return rejectWithValue(error.message)
-        // }
-        if (typeof error === 'object' && error !== null) {
-            console.log(error.toString());
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
         } else {
-            console.log('Unexpected error', error);
+            return rejectWithValue(error.message)
         }
     }
 }
@@ -46,8 +41,12 @@ export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg
         const { data } = await axios.post(`${BASE_URL}/profile`, arg, config);
         // console.log("getUser: ", data)
         return data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message)
+        }
     }
 }
 )
@@ -63,8 +62,12 @@ export const updateUserProfile = createAsyncThunk("user/updateUserProfile", asyn
         const { data } = await axios.put(`${BASE_URL}/profile`, { firstName, lastName }, config);
         // console.log("update:",data)
         return data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message)
+        }
     }
 }
 )
@@ -82,11 +85,11 @@ export const userRegister = createAsyncThunk('user/userRegister', async ({ lastN
         // console.log("login", data)
         sessionStorage.setItem("userToken", data.body.token)
         return data;
-    } catch (error) {
-        if (typeof error === 'object' && error !== null) {
-            console.log(error.toString());
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
         } else {
-            console.log('Unexpected error', error);
+            return rejectWithValue(error.message)
         }
     }
 })

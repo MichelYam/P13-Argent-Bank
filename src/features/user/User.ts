@@ -41,9 +41,9 @@ const userSlice = createSlice({
                 state.userToken = payload?.body.token
                 state.isAuthenticated = true
             })
-            .addCase(userLogin.rejected, (state, { payload }) => {
+            .addCase(userLogin.rejected, (state, { payload }: any) => {
                 state.loading = false
-                // state.error = payload
+                state.error = payload
             })
             //Register
             .addCase(userRegister.pending, (state) => {
@@ -56,9 +56,9 @@ const userSlice = createSlice({
                 state.isAuthenticated = true
 
             })
-            .addCase(userRegister.rejected, (state, { payload }) => {
+            .addCase(userRegister.rejected, (state, { payload }: any) => {
                 state.loading = false
-                // state.error = payload
+                state.error = payload
             })
             //Get user
             .addCase(getUserDetails.pending, (state) => {
@@ -70,6 +70,7 @@ const userSlice = createSlice({
             })
             .addCase(getUserDetails.rejected, (state, { payload }: any) => {
                 state.loading = false
+                state.error = payload
             })
 
             //Update user
@@ -82,6 +83,7 @@ const userSlice = createSlice({
             })
             .addCase(updateUserProfile.rejected, (state, { payload }: any) => {
                 state.loading = false
+                state.error = payload
             })
 
     }

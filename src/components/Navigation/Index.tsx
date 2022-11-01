@@ -28,7 +28,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
             <div>
                 {!userToken ?
                     <>
-                        <Link className={style["main-nav-item"]} to={`/signin`}>
+                        <Link className={style["main-nav-item"]} to={`/login`}>
                             <i className="fa fa-user-circle"></i>
                             Sign In
                         </Link>
@@ -43,7 +43,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
                             <i className="fa fa-user-circle"></i>
                             {userInfo?.firstName}
                         </Link>
-                        <Link className={style["main-nav-item"]} to={"/signin"} onClick={logout}>
+                        <Link className={style["main-nav-item"]} to={"/login"} onClick={logout}>
                             <i className="fa fa-sign-out"></i>
                             Sign Out
                         </Link>

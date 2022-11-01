@@ -25,7 +25,6 @@ export default function Index({ isLogin, title }: FormInterface) {
     const { loading, error } = useAppSelector(selectUser);
     // const [errors, setErrors] = useState([]);
     const dispatch = useAppDispatch()
-
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
             ...data,
@@ -51,7 +50,7 @@ export default function Index({ isLogin, title }: FormInterface) {
             <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
             <h1>{title}</h1>
             <form onSubmit={submitForm}>
-                {error && <p>{error}</p>}
+                {error && <p className={styles.errMsg}>{error}</p>}
                 <div className={styles["input-wrapper"]}>
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
