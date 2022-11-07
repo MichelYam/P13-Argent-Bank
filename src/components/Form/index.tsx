@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import { selectUser } from '../../utils/selector';
 //Redux
 import { userLogin, userRegister } from '../../features/user/userActions';
+// import { userLogin } from '../../redux/test/actions';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
 
@@ -13,7 +15,7 @@ interface FormInterface {
     isLogin: boolean,
     title: string
 }
-export default function Index({ isLogin, title }: FormInterface) {
+function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',
         firstName: '',
@@ -23,7 +25,6 @@ export default function Index({ isLogin, title }: FormInterface) {
         remember: false,
     })
     const { loading, error } = useAppSelector(selectUser);
-    // const [errors, setErrors] = useState([]);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
@@ -40,7 +41,7 @@ export default function Index({ isLogin, title }: FormInterface) {
 
         } else {
             if (data.password === data.confirmPassword) {
-                dispatch(userRegister(data))
+                // dispatch(userRegister(data))
             }
         }
     }
@@ -98,3 +99,13 @@ Index.propTypes = {
     isLogin: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
 }
+
+const mapStateToProps = (state: any) => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { userLogin }
+)(Index);

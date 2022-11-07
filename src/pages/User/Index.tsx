@@ -11,8 +11,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
 
-import styles from './Style.module.css';
-
 export const User: React.FC = () => {
     const { userInfo }: IDataAPI = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
@@ -43,11 +41,11 @@ export const User: React.FC = () => {
         dispatch(updateUserProfile(input))
     }
     return (
-        <main className={`${styles.main} ${styles['bg-dark']}`}>
-            <div className={styles.header}>
+        <main className="main bg-dark">
+            <div className="header">
                 {!editMode ? <>
                     <h1>Welcome back<br />{fullName}</h1>
-                    <button className={styles["edit-button"]} onClick={toggleEdit}>Edit Name</button>
+                    <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
                 </>
                     :
                     <>
@@ -58,8 +56,8 @@ export const User: React.FC = () => {
                             <label htmlFor="lastName">Last Name</label>
                             <input type="text" id='lastName' value={input.lastName} onChange={handleChangeValue} />
 
-                            <button className={styles["edit-button"]} onClick={toggleEdit}>Cancel</button>
-                            <button type='submit' className={styles["edit-button"]} >Submit</button>
+                            <button className="edit-button" onClick={toggleEdit}>Cancel</button>
+                            <button type='submit' className="edit-button" >Submit</button>
                         </form>
                     </>
                 }
