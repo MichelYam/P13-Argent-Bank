@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 import { selectUser } from '../../utils/selector';
 //Redux
 import { userLogin, userRegister } from '../../features/user/userActions';
-// import { userLogin } from '../../redux/test/actions';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
 
@@ -15,7 +13,7 @@ interface FormInterface {
     isLogin: boolean,
     title: string
 }
-function Index({ isLogin, title }: FormInterface) {
+export default function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',
         firstName: '',
@@ -41,11 +39,10 @@ function Index({ isLogin, title }: FormInterface) {
 
         } else {
             if (data.password === data.confirmPassword) {
-                // dispatch(userRegister(data))
+                dispatch(userRegister(data))
             }
         }
     }
-
     return (
         <>
             <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
@@ -60,11 +57,11 @@ function Index({ isLogin, title }: FormInterface) {
                     isLogin ? <>
                         <div className={styles["input-wrapper"]}>
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
+                            <input type="password" id="password" value={data.password} onChange={handleChangeValue} autoComplete="on" required />
                         </div>
                         <div className={styles["input-remember"]}>
-                            <input type="checkbox" id="remember-me" onChange={handleChangeValue} />
-                            <label htmlFor="remember-me"> Remember me</label>
+                            <input type="checkbox" id="remember" onChange={handleChangeValue} />
+                            <label htmlFor="remember"> Remember me</label>
                         </div>
                     </>
                         :
@@ -99,13 +96,3 @@ Index.propTypes = {
     isLogin: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
 }
-
-const mapStateToProps = (state: any) => ({
-    auth: state.auth,
-    errors: state.errors
-});
-
-export default connect(
-    mapStateToProps,
-    { userLogin }
-)(Index);

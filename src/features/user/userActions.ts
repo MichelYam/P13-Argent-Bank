@@ -10,7 +10,7 @@ export interface IUser {
     lastName?: string;
     remember?: boolean;
 }
-export const userLogin = createAsyncThunk("user/login", async ({ email, password }: IUser, { rejectWithValue }) => {
+export const userLogin = createAsyncThunk("user/login", async ({ email, password, remember }: IUser, { rejectWithValue }) => {
     try {
         const config = {
             headers: {
@@ -18,7 +18,11 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
             },
         }
         const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
-        sessionStorage.setItem("userToken", data.body.token)
+        if(remember){
+            localStorage.setItem("userToken", data.body.token)
+        }else{
+            sessionStorage.setItem("userToken", data.body.token)
+        }
         return data;
     } catch (error: any) {
         if (error.response && error.response.data.message) {
