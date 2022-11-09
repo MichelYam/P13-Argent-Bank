@@ -1,6 +1,8 @@
 // import { SET_CURRENT_USER } from "./constants/AuthTypes";
 import axios from "axios";
-import { EDIT_USER, EDIT_USER_ERROR, EDIT_USER_SUCCESS } from './constants/AuthTypes'
+import { Dispatch } from "react";
+import { SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS, GET_USER, GET_USER_ERROR, GET_USER_SUCCESS } from './constants/AuthTypes'
+// import store from "./store";
 const BASE_URL = "http://localhost:3001/api/v1/user";
 
 export interface IUser {
@@ -11,8 +13,7 @@ export interface IUser {
     remember?: boolean;
 }
 export const userLogin = ({ email, password }: IUser) => {
-    return (dispatch: any) => {
-        console.log("test")
+    return async (dispatch: any) => {
         dispatch(loginUser())
         const config = {
             headers: {
@@ -20,11 +21,17 @@ export const userLogin = ({ email, password }: IUser) => {
             },
         }
         try {
-            const response = axios.put(`${BASE_URL}/profile`, { email, password }, config);
-            console.log(response)
-            if (!response) {
+            const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
+            console.log("data:", data)
+            if (!data) {
                 throw new Error('Error - 404 Not Found');
-            } dispatch(loginUserSuccess(response));
+            }
+            sessionStorage.setItem("userToken", data.body.token)
+            dispatch({
+                type: SET_CURRENT_USER_SUCCESS,
+                loading: false,
+                userToken: data.body.token
+            });
         } catch (error) {
             console.log(error);
             dispatch(loginUserError(error));
@@ -34,39 +41,58 @@ export const userLogin = ({ email, password }: IUser) => {
 
 
 export const loginUser = () => ({
-    type: EDIT_USER,
+    type: SET_CURRENT_USER,
     loading: true,
 })
 export const loginUserSuccess = (data: any) => ({
-    type: EDIT_USER_SUCCESS,
+    type: SET_CURRENT_USER_SUCCESS,
     loading: false,
     data
 })
 export const loginUserError = (error: any) => ({
-    type: EDIT_USER_ERROR,
+    type: SET_CURRENT_USER_ERROR,
     loading: false,
-    error,
+    error: error,
 })
-// export const getUserDetails = createAsyncThunk("user/getUserDetails", async (arg, { rejectWithValue, getState }) => {
-//     const { user }: any = getState()
-//     try {
-//         const config = {
-//             headers: {
-//                 Authorization: `Bearer ${user.userToken}`,
-//             },
-//         }
-//         const { data } = await axios.post(`${BASE_URL}/profile`, arg, config);
-//         // console.log("getUser: ", data)
-//         return data
-//     } catch (error: any) {
-//         if (error.response && error.response.data.message) {
-//             return rejectWithValue(error.response.data.message)
-//         } else {
-//             return rejectWithValue(error.message)
-//         }
-//     }
-// }
-// )
+
+export const getUserDetails = (userToken: string) => {
+
+    return async (dispatch: any) => {
+        dispatch(getUser())
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }
+        try {
+            const { data } = await axios.post(`${BASE_URL}/profile`, {}, config);
+            if (!data) {
+                throw new Error('Error - 404 Not Found');
+            }
+            dispatch(getUserSuccess(data));
+            console.log("data:", data)
+        } catch (error) {
+            console.log(error);
+            dispatch(getUserError(error));
+        }
+    }
+}
+
+export const getUser = () => ({
+    type: GET_USER,
+    loading: true,
+})
+export const getUserSuccess = (data: any) => ({
+    type: GET_USER_SUCCESS,
+    loading: false,
+    data
+})
+export const getUserError = (error: any) => ({
+    type: GET_USER_ERROR,
+    loading: false,
+    error: error,
+})
+
 
 // export const updateUserProfile = async ({ firstName, lastName }: IUser) => {
 //     return async (dispatch: any) => {

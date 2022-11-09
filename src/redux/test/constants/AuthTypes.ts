@@ -1,5 +1,4 @@
 export const USER_UPDATE = "USER_UPDATE";
-export const GET_USER = "GET_USER";
 export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 
@@ -10,3 +9,8 @@ export const SET_CURRENT_USER_ERROR = "SET_CURRENT_USER_ERROR";
 export const EDIT_USER = 'EDIT_USER'
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS'
 export const EDIT_USER_ERROR = 'EDIT_USER_ERROR'
+
+export const GET_USER = 'GET_USER'
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+export const GET_USER_ERROR = 'GET_USER_ERROR'
+

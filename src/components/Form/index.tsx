@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 //selector
 import { selectUser } from '../../utils/selector';
 //Redux
-import { userLogin, userRegister } from '../../features/user/userActions';
-// import { userLogin } from '../../redux/test/actions';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+// import { userLogin, userRegister } from '../../features/user/userActions';
+import { userLogin } from '../../redux/test/actions';
+import { useAppDispatch, useAppSelector } from '../../redux/test/store';
 import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
 
 import styles from "./Style.module.css";
+
+import { Navigate } from "react-router-dom";
+import { RootState } from '../../redux/test/store';
+import { IDataAPI } from '../../features/user/User';
 interface FormInterface {
     isLogin: boolean,
     title: string
@@ -24,7 +28,7 @@ function Index({ isLogin, title }: FormInterface) {
         confirmPassword: '',
         remember: false,
     })
-    const { loading, error } = useAppSelector(selectUser);
+    // const { loading, error } = useAppSelector(selectUser);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
@@ -38,7 +42,7 @@ function Index({ isLogin, title }: FormInterface) {
         event.preventDefault();
         if (isLogin) {
             dispatch(userLogin(data));
-
+            <Navigate to="/profile" replace={true} />
         } else {
             if (data.password === data.confirmPassword) {
                 // dispatch(userRegister(data))
@@ -51,7 +55,7 @@ function Index({ isLogin, title }: FormInterface) {
             <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
             <h1>{title}</h1>
             <form onSubmit={submitForm}>
-                {error && <p className={styles.errMsg}>{error}</p>}
+                {/* {error && <p className={styles.errMsg}>{error}</p>} */}
                 <div className={styles["input-wrapper"]}>
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
@@ -60,7 +64,7 @@ function Index({ isLogin, title }: FormInterface) {
                     isLogin ? <>
                         <div className={styles["input-wrapper"]}>
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" value={data.password} onChange={handleChangeValue} required />
+                            <input type="password" id="password" value={data.password} onChange={handleChangeValue} autoComplete="true" required />
                         </div>
                         <div className={styles["input-remember"]}>
                             <input type="checkbox" id="remember-me" onChange={handleChangeValue} />

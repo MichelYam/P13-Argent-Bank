@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
             <div className='unauthorized'>
                 <h1>Unauthorized :(</h1>
                 <span>
-                    <NavLink to='/signin'>Login</NavLink> to gain access
+                    <NavLink to='/login'>Login</NavLink> to gain access
                 </span>
             </div>
         )

@@ -1,13 +1,6 @@
 import { IUser } from "./actions";
-import { EDIT_USER, EDIT_USER_ERROR, EDIT_USER_SUCCESS } from './constants/AuthTypes'
+import { GET_USER, GET_USER_ERROR, GET_USER_SUCCESS, SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS } from './constants/AuthTypes'
 
-const initialState = {
-    isAuthenticated: false,
-    loading: false,
-    userInfo: null,
-    userToken: sessionStorage.getItem('userToken') || null,
-    error: null,
-}
 export interface IDataAPI {
     isAuthenticated: boolean,
     loading: boolean,
@@ -15,26 +8,53 @@ export interface IDataAPI {
     userToken: string | null,
     error: string | null,
 }
+const initialState = {
+    isAuthenticated: false,
+    loading: false,
+    userInfo: null,
+    userToken: sessionStorage.getItem('userToken') || null,
+    error: null,
+}
 
-export default function userReducer(state = initialState, action: any) {
+export default function userReducer(state: IDataAPI = initialState, action: any) {
     switch (action.type) {
-        case EDIT_USER:
+        case SET_CURRENT_USER:
             return {
                 ...state,
-                loading: action.loading,
+                loading: true,
             }
-        case EDIT_USER_SUCCESS:
+        case SET_CURRENT_USER_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 isAuthenticated: true,
-                userInfo: action.payload
+                userToken: action.payload
             }
-        case EDIT_USER_ERROR:
+        case SET_CURRENT_USER_ERROR:
             return {
                 ...state,
                 loading: action.loading,
                 error: action.error,
             }
+        case GET_USER:
+            return {
+                ...state,
+                loading: true,
+            }
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                userInfo: action.payload.body
+            }
+        case GET_USER_ERROR:
+            return {
+                ...state,
+                loading: action.loading,
+                error: action.error,
+            }
+        default:
+            return state;
     }
 }
 
