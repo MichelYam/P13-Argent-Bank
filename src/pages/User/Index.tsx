@@ -11,19 +11,23 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
 
-export const User: React.FC = () => {
-    const { userInfo }: IDataAPI = useAppSelector(selectUser)
-    const dispatch = useAppDispatch()
-    const [input, setInput] = useState({
-        firstName: '',
-        lastName: '',
-    })
+import Modal from "../../components/Modal/Index"
 
+export const User: React.FC = () => {
+
+    const { userInfo }: IDataAPI = useAppSelector(selectUser)
     let fullName = "";
     if (userInfo !== null) {
         fullName = [userInfo["firstName"], userInfo["lastName"]].join(' ')
     }
+    const dispatch = useAppDispatch()
+    const [input, setInput] = useState({
+        firstName: fullName.split(' ')[0],
+        lastName: fullName.split(' ')[1],
+    })
+
     const [editMode, setEditMode] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false)
 
     const toggleEdit = () => {
         setEditMode(!editMode)
@@ -43,22 +47,28 @@ export const User: React.FC = () => {
     return (
         <main className="main bg-dark">
             <div className="header">
-                {!editMode ? <>
-                    <h1>Welcome back<br />{fullName}</h1>
-                    <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
-                </>
+                <h1>Welcome back<br />{fullName}</h1>
+                {!editMode ?
+                    <>
+                        <button className='edit-button' onClick={toggleEdit}>Edit Name</button>
+                    </>
                     :
                     <>
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="firstName">First Name</label>
-                            <input type="text" id='firstName' value={input.firstName} onChange={handleChangeValue} />
+                        <Modal onClose={toggleEdit}>
+                            <form onSubmit={handleSubmit}>
+                                <div className="control-label">
+                                    <label htmlFor="firstName">First Name</label>
+                                    <input type="text" id='firstName' value={input.firstName} onChange={handleChangeValue} />
+                                </div>
+                                <div className="control-label">
+                                    <label htmlFor="lastName">Last Name</label>
+                                    <input type="text" id='lastName' value={input.lastName} onChange={handleChangeValue} />
+                                </div>
 
-                            <label htmlFor="lastName">Last Name</label>
-                            <input type="text" id='lastName' value={input.lastName} onChange={handleChangeValue} />
-
-                            <button className="edit-button" onClick={toggleEdit}>Cancel</button>
-                            <button type='submit' className="edit-button" >Submit</button>
-                        </form>
+                                <button className="edit-button" onClick={toggleEdit}>Cancel</button>
+                                <button type='submit' className="edit-button" >Submit</button>
+                            </form>
+                        </Modal>
                     </>
                 }
             </div>

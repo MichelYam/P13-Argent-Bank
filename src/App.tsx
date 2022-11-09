@@ -12,6 +12,7 @@ import SignIn from './pages/Auth/Login';
 import SignUp from './pages/Auth/Register';
 import { User } from './pages/User/Index';
 import ProtectedRoute from "./pages/PrivateRoute";
+import Error from './pages/NotFound';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path='/user' element={<User />} />
         </Route>
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </BrowserRouter>

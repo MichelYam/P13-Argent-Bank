@@ -153,6 +153,21 @@ button {
   flex-direction: column;
 }
 
+.control-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.control-label label {
+  color: #000;
+}
+.editBtn{
+  padding: 10px;
+}
+.editBtn:first-child{
+  margin-right: 30px;
+}
 @media (min-width: 920px) {
   .features {
     flex-direction: row;
