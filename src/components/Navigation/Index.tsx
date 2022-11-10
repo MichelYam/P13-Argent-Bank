@@ -12,10 +12,7 @@ interface INavigation {
 }
 
 export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout }) => {
-    // const test = style.main-nav
-
     return (
-        // <nav className={style['main-nav']}>
         <nav className={style['main-nav']}>
             <Link to={'/'} className={style['main-nav-logo']}>
                 <img
