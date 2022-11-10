@@ -2,24 +2,22 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 //selector
 import { selectUser } from '../../utils/selector';
-//Redux
 // import { userLogin, userRegister } from '../../features/user/userActions';
 import { userLogin } from '../../redux/test/actions';
-import { useAppDispatch, useAppSelector } from '../../redux/test/store';
-import { connect } from "react-redux";
+//Redux
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/test/store';
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 
 import styles from "./Style.module.css";
-
-import { Navigate } from "react-router-dom";
-import { RootState } from '../../redux/test/store';
 import { IDataAPI } from '../../features/user/User';
+
 interface FormInterface {
     isLogin: boolean,
     title: string
 }
-function Index({ isLogin, title }: FormInterface) {
+export default function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',
         firstName: '',
@@ -28,7 +26,8 @@ function Index({ isLogin, title }: FormInterface) {
         confirmPassword: '',
         remember: false,
     })
-    // const { loading, error } = useAppSelector(selectUser);
+
+    const { loading, error } = useAppSelector<IDataAPI>((state) => state);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
@@ -37,12 +36,10 @@ function Index({ isLogin, title }: FormInterface) {
                 event.target.id === "remember" ? !data.remember : event.target.value,
         });
     };
-
     const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (isLogin) {
-            dispatch(userLogin(data));
-            <Navigate to="/profile" replace={true} />
+           dispatch(userLogin(data));
         } else {
             if (data.password === data.confirmPassword) {
                 // dispatch(userRegister(data))
@@ -55,7 +52,7 @@ function Index({ isLogin, title }: FormInterface) {
             <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
             <h1>{title}</h1>
             <form onSubmit={submitForm}>
-                {/* {error && <p className={styles.errMsg}>{error}</p>} */}
+                {error && <p className={styles.errMsg}>{error}</p>}
                 <div className={styles["input-wrapper"]}>
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" value={data.email} onChange={handleChangeValue} required />
@@ -104,12 +101,29 @@ Index.propTypes = {
     title: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = (state: any) => ({
-    auth: state.auth,
-    errors: state.errors
-});
+// const mapStateToProps = (state: any) => ({
+//     // auth: state.auth,
+//     errors: state.errors,
+//     loading: state.loading
+// });
 
-export default connect(
-    mapStateToProps,
-    { userLogin }
-)(Index);
+// export default connect(
+//     mapStateToProps,
+//     { userLogin }
+// )(Index);
+
+// const mapStateToProps = state => ({
+//     searchField: state.searchRobots.searchField,
+//     robots: state.requestRobots.robots,
+//     isPending: state.requestRobots.isPending
+//   })
+  
+//   const mapDispatchToProps = dispatch => ({
+//     onSearchChange: event => dispatch(setSearchField(event.target.value)),
+//     onRequestRobots: () => dispatch(requestRobots())
+//   })
+  
+//   // we take the 2 functions and connect them to our App component
+//   const Connect = connect(mapStateToProps, mapDispatchToProps)(App)
+  
+//   export default Connect

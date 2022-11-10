@@ -4,6 +4,7 @@ import { IUser } from '../../features/user/userActions';
 
 import PropTypes from "prop-types";
 import style from './Style.module.css';
+import { useSelector } from 'react-redux';
 
 interface INavigation {
     userInfo?: IUser | null,
@@ -13,9 +14,9 @@ interface INavigation {
 
 export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout }) => {
     // const test = style.main-nav
-
+    const store = useSelector((state) => state);
+    console.log("store:", store)
     return (
-        // <nav className={style['main-nav']}>
         <nav className={style['main-nav']}>
             <Link to={'/'} className={style['main-nav-logo']}>
                 <img

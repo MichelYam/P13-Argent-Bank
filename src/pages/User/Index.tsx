@@ -10,9 +10,10 @@ import { UserAccountMock } from '../../data/DataMock'
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
+import { useSelector } from 'react-redux';
 
 export const User: React.FC = () => {
-    const { userInfo }: IDataAPI = useAppSelector(selectUser)
+    const { userInfo } = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const [input, setInput] = useState({
         firstName: '',

@@ -1,6 +1,4 @@
-// import { SET_CURRENT_USER } from "./constants/AuthTypes";
 import axios from "axios";
-import { Dispatch } from "react";
 import { SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS, GET_USER, GET_USER_ERROR, GET_USER_SUCCESS } from './constants/AuthTypes'
 // import store from "./store";
 const BASE_URL = "http://localhost:3001/api/v1/user";
@@ -12,26 +10,29 @@ export interface IUser {
     lastName?: string;
     remember?: boolean;
 }
+export interface IDataAPI {
+    isAuthenticated: boolean,
+    loading: boolean,
+    userInfo?: IUser | null,
+    userToken: string | null,
+    error: string | null,
+}
 export const userLogin = ({ email, password }: IUser) => {
     return async (dispatch: any) => {
-        dispatch(loginUser())
         const config = {
             headers: {
                 "Content-Type": "application/json",
             },
         }
         try {
+            dispatch(loginUser())
             const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
             console.log("data:", data)
             if (!data) {
                 throw new Error('Error - 404 Not Found');
             }
             sessionStorage.setItem("userToken", data.body.token)
-            dispatch({
-                type: SET_CURRENT_USER_SUCCESS,
-                loading: false,
-                userToken: data.body.token
-            });
+            dispatch(loginUserSuccess(data));
         } catch (error) {
             console.log(error);
             dispatch(loginUserError(error));
@@ -39,32 +40,34 @@ export const userLogin = ({ email, password }: IUser) => {
     }
 }
 
-
 export const loginUser = () => ({
     type: SET_CURRENT_USER,
     loading: true,
 })
-export const loginUserSuccess = (data: any) => ({
+
+export const loginUserSuccess = (payload: any) => ({
     type: SET_CURRENT_USER_SUCCESS,
     loading: false,
-    data
+    payload: payload.body.token
+
 })
-export const loginUserError = (error: any) => ({
+
+export const loginUserError = (payload: any) => ({
     type: SET_CURRENT_USER_ERROR,
     loading: false,
-    error: error,
+    payload,
 })
 
 export const getUserDetails = (userToken: string) => {
 
     return async (dispatch: any) => {
-        dispatch(getUser())
         const config = {
             headers: {
                 Authorization: `Bearer ${userToken}`,
             },
         }
         try {
+            dispatch(getUser())
             const { data } = await axios.post(`${BASE_URL}/profile`, {}, config);
             if (!data) {
                 throw new Error('Error - 404 Not Found');
@@ -82,15 +85,15 @@ export const getUser = () => ({
     type: GET_USER,
     loading: true,
 })
-export const getUserSuccess = (data: any) => ({
+export const getUserSuccess = (payload: any) => ({
     type: GET_USER_SUCCESS,
     loading: false,
-    data
+    payload: payload.body,
 })
-export const getUserError = (error: any) => ({
+export const getUserError = (payload: unknown) => ({
     type: GET_USER_ERROR,
     loading: false,
-    error: error,
+    payload,
 })
 
 
@@ -150,12 +153,4 @@ export const getUserError = (error: any) => ({
 //         }
 //     }
 // })
-
-// Set logged in user
-// export const setCurrentUser = (action: any) => {
-//     return {
-//         type: SET_CURRENT_USER,
-//         payload: action
-//     };
-// };
 

@@ -1,22 +1,22 @@
+import { RootState } from "./store";
 import { IUser } from "./actions";
 import { GET_USER, GET_USER_ERROR, GET_USER_SUCCESS, SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS } from './constants/AuthTypes'
+import { initialState } from "./store";
 
 export interface IDataAPI {
     isAuthenticated: boolean,
     loading: boolean,
-    userInfo?: IUser | null,
-    userToken: string | null,
-    error: string | null,
+    userInfo: IUser ,
+    userToken: string ,
+    error: string,
 }
-const initialState = {
-    isAuthenticated: false,
-    loading: false,
-    userInfo: null,
-    userToken: sessionStorage.getItem('userToken') || null,
-    error: null,
-}
-
-export default function userReducer(state: IDataAPI = initialState, action: any) {
+interface Action {
+    type: string
+    payload?: string
+  }
+export default function userReducer(state = initialState, action: any) {
+    const { payload } = action
+    console.log("payload:", payload)
     switch (action.type) {
         case SET_CURRENT_USER:
             return {
@@ -33,8 +33,8 @@ export default function userReducer(state: IDataAPI = initialState, action: any)
         case SET_CURRENT_USER_ERROR:
             return {
                 ...state,
-                loading: action.loading,
-                error: action.error,
+                loading: false,
+                error: action.payload,
             }
         case GET_USER:
             return {
@@ -45,13 +45,13 @@ export default function userReducer(state: IDataAPI = initialState, action: any)
             return {
                 ...state,
                 loading: false,
-                userInfo: action.payload.body
+                userInfo: action.payload
             }
         case GET_USER_ERROR:
             return {
                 ...state,
-                loading: action.loading,
-                error: action.error,
+                loading: false,
+                error: action.payload,
             }
         default:
             return state;
