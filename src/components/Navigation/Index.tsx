@@ -39,7 +39,7 @@ export const Navigation: React.FC<INavigation> = ({ userInfo, userToken, logout 
                     </>
                     :
                     <>
-                        <Link className={style["main-nav-item"]} to={"/user"}>
+                        <Link className={style["main-nav-item"]} to={"/profile"}>
                             <i className="fa fa-user-circle"></i>
                             {userInfo?.firstName}
                         </Link>

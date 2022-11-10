@@ -14,8 +14,6 @@ import { User } from './pages/User/Index';
 import ProtectedRoute from "./pages/PrivateRoute";
 import Error from './pages/NotFound';
 
-
-
 function App() {
   return (
     <BrowserRouter>
@@ -25,7 +23,7 @@ function App() {
         <Route path='/login' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='/user' element={<User />} />
+          <Route path='/profile' element={<User />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

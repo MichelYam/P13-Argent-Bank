@@ -5,9 +5,10 @@ const initialState = {
     isAuthenticated: false,
     loading: false,
     userInfo: null,
-    userToken: sessionStorage.getItem('userToken') || null,
+    userToken: sessionStorage.getItem('userToken') || localStorage.getItem('userToken') || null,
     error: null,
 }
+
 export interface IDataAPI {
     isAuthenticated: boolean,
     loading: boolean,

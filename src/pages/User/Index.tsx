@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //redux
 import { selectUser } from '../../utils/selector';
 
@@ -14,13 +14,13 @@ import { updateUserProfile } from '../../features/user/userActions';
 import Modal from "../../components/Modal/Index"
 
 export const User: React.FC = () => {
-
+    //add title page
     const { userInfo }: IDataAPI = useAppSelector(selectUser)
     let fullName = "";
+    const dispatch = useAppDispatch()
     if (userInfo !== null) {
         fullName = [userInfo["firstName"], userInfo["lastName"]].join(' ')
     }
-    const dispatch = useAppDispatch()
     const [input, setInput] = useState({
         firstName: fullName.split(' ')[0],
         lastName: fullName.split(' ')[1],
