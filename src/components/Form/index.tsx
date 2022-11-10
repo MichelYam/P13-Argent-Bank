@@ -17,7 +17,7 @@ interface FormInterface {
     isLogin: boolean,
     title: string
 }
-export default function Index({ isLogin, title }: FormInterface) {
+ function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',
         firstName: '',
@@ -101,16 +101,18 @@ Index.propTypes = {
     title: PropTypes.string.isRequired,
 }
 
-// const mapStateToProps = (state: any) => ({
-//     // auth: state.auth,
-//     errors: state.errors,
-//     loading: state.loading
-// });
-
-// export default connect(
-//     mapStateToProps,
-//     { userLogin }
-// )(Index);
+const mapStateToProps = (state: any) => ({
+    // auth: state.auth,
+    errors: state.errors,
+    loading: state.loading
+});
+  const mapDispatchToProps = dispatch => ({
+    
+  })
+export default connect(
+    mapStateToProps,
+    { userLogin }
+)(Index);
 
 // const mapStateToProps = state => ({
 //     searchField: state.searchRobots.searchField,
