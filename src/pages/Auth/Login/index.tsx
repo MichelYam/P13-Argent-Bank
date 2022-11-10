@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../redux/store';
 
 const SignIn = () => {
   const { userToken } = useAppSelector(selectUser);
-  if (userToken) return <Navigate to="/user" />;
+  if (userToken) return <Navigate to="/profile" />;
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">

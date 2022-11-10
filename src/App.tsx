@@ -15,6 +15,7 @@ import ProtectedRoute from "./pages/PrivateRoute";
 import Error from './pages/NotFound';
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Header />
