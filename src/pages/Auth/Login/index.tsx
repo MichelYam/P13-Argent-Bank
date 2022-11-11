@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Form from "../../../components/Form/index";
 
@@ -8,7 +8,11 @@ import { useAppSelector } from '../../../redux/store';
 
 const SignIn = () => {
   const { userToken } = useAppSelector(selectUser);
+  useEffect(() => {
+    document.title = "Argent Bank - Login Page"
+  }, [])
   if (userToken) return <Navigate to="/profile" />;
+
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">

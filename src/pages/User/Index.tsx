@@ -44,6 +44,10 @@ export const User: React.FC = () => {
         setEditMode(false)
         dispatch(updateUserProfile(input))
     }
+
+    useEffect(() => {
+        document.title = "Argent Bank - Profile Page"
+    }, [])
     return (
         <main className="main bg-dark">
             <div className="header">

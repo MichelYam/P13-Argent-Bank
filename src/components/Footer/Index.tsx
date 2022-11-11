@@ -1,9 +1,12 @@
 import styles from './Style.module.css'
 
-export const Footer = () => {
+interface IFooter {
+    year: number
+}
+export const Footer = ({ year }: IFooter) => {
     return (
         <footer className={styles.footer}>
-            <p className={styles["footer-text"]}>Copyright 2020 Argent Bank</p>
+            <p className={styles["footer-text"]}>Copyright {year} Argent Bank</p>
         </footer>
     )
 }

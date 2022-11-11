@@ -15,7 +15,8 @@ import ProtectedRoute from "./pages/PrivateRoute";
 import Error from './pages/NotFound';
 
 function App() {
-  
+  const date = new Date()
+  const currentYear = date.getFullYear()
   return (
     <BrowserRouter>
       <Header />
@@ -28,7 +29,7 @@ function App() {
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
-      <Footer />
+      <Footer year={currentYear} />
     </BrowserRouter>
   );
 }
