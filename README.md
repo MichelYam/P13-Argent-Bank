@@ -1,6 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
 
-# Project 13 - Front-end Argent Bank
+# Project 13 (OpenClassroom) - Front-end Argent Bank
 Project 13 Source Code - Use an API for a bank user account with React.
 
 ## Installation

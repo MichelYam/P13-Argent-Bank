@@ -55,8 +55,7 @@ export const User: React.FC = () => {
                 {!editMode ?
                     <>
                         <button className='edit-button' onClick={toggleEdit}>Edit Name</button>
-                    </>
-                    :
+                    </> :
                     <>
                         <Modal onClose={toggleEdit}>
                             <form onSubmit={handleSubmit}>
