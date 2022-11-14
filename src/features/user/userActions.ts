@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { saveStorage } from "../../utils/TokenStorage";
 
 const BASE_URL = "http://localhost:3001/api/v1/user";
 
@@ -18,11 +19,12 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
             },
         }
         const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
-        if(remember){
-            localStorage.setItem("userToken", data.body.token)
-        }else{
-            sessionStorage.setItem("userToken", data.body.token)
-        }
+        // if(remember){
+        //     localStorage.setItem("userToken", data.body.token)
+        // }else{
+        //     sessionStorage.setItem("userToken", data.body.token)
+        // }
+        saveStorage(data.body.token, remember)
         return data;
     } catch (error: any) {
         if (error.response && error.response.data.message) {

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { clearStorage } from "../../utils/TokenStorage";
 import { userLogin, userRegister, getUserDetails, updateUserProfile, IUser } from './userActions'
 
 const initialState = {
@@ -22,8 +23,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            sessionStorage.removeItem('userToken')
-            localStorage.removeItem('userToken')
+            clearStorage()
             state.loading = false
             state.userInfo = null
             state.userToken = null

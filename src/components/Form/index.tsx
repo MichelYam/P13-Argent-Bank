@@ -13,6 +13,11 @@ interface FormInterface {
     isLogin: boolean,
     title: string
 }
+/**
+ * 
+ * @param param0 
+ * @returns {React.ReactElement} Form
+ */
 export default function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',

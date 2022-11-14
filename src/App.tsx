@@ -4,8 +4,8 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Components
-import { Header } from './components/Header/Index';
-import { Footer } from './components/Footer/Index';
+import { Header } from './layout/Header/Index';
+import { Footer } from './layout/Footer/Index';
 
 import Home from './pages/Home/Index';
 import SignIn from './pages/Auth/Login';

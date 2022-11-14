@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import styles from './Style.module.css'
+
 interface FeatureProps {
     title: string,
     icon: string,
@@ -8,6 +9,15 @@ interface FeatureProps {
     children: React.ReactNode
 }
 
+/**
+ * The features.
+ * @param {Object} Feature - The feature
+ * @param {string} Feature.image - The title of the feature
+ * @param {string} Feature.icon - the amount of the feature
+ * @param {string} Feature.title - the description of the feature
+ * @param {string} Feature.children - the description of the feature
+ * @returns {React.ReactElement} The feature
+ */
 export const Feature: React.FC<FeatureProps> = ({ image, icon, title, children }) => {
     return (
         <div className={styles["feature-item"]}>

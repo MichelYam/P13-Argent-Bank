@@ -10,6 +10,14 @@ interface AccountProps {
     description: string
 }
 
+/**
+ * Assign the project to an employee.
+ * @param {Object} Account - The account of user
+ * @param {string} Account.title - The title of the account
+ * @param {string} Account.amount - the amount of the account
+ * @param {string} Account.description - the description of the account
+ * @returns {React.ReactElement} The account
+ */
 export const Account: React.FC<AccountProps> = ({ title, amount, description }) => {
     return (
         <section className={styles.account}>

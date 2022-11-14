@@ -1,3 +1,20 @@
+[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
+
+# Project 12 - Front-end Dashboard
+Project 13 Source Code - Use an API for a bank user account with React.
+
+## Installation
+
+### Prerequisites
+- [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+- Npm
+- [Back-End](https://github.com/MichelYam/P13-Bank-API)
+
+### Launch the project
+- Forke and clone this repository
+- Install project dependencies using the following command `npm install`
+- Use the `npm run start` command to launch the project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
