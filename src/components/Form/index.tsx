@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 //selector
 import { selectUser } from '../../utils/selector';
 // import { userLogin, userRegister } from '../../features/user/userActions';
 import { userLogin } from '../../redux/test/actions';
 //Redux
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/test/store';
-import { connect, useDispatch, useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
-
+import { connect } from "react-redux";
 import styles from "./Style.module.css";
 import { IDataAPI } from '../../features/user/User';
 
@@ -17,7 +16,7 @@ interface FormInterface {
     isLogin: boolean,
     title: string
 }
- function Index({ isLogin, title }: FormInterface) {
+function Index({ isLogin, title }: FormInterface) {
     const [data, setData] = useState({
         lastName: '',
         firstName: '',
@@ -26,8 +25,8 @@ interface FormInterface {
         confirmPassword: '',
         remember: false,
     })
-
-    const { loading, error } = useAppSelector<IDataAPI>((state) => state);
+    const navigate = useNavigate()
+    const { loading, error } = useAppSelector<IDataAPI>((state: any) => state);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
@@ -46,7 +45,7 @@ interface FormInterface {
             }
         }
     }
-
+ 
     return (
         <>
             <i className={`fa fa-user-circle ${styles["sign-in-icon"]}`} />
@@ -102,13 +101,10 @@ Index.propTypes = {
 }
 
 const mapStateToProps = (state: any) => ({
-    // auth: state.auth,
-    errors: state.errors,
-    loading: state.loading
+    userToken: state.userToken,
+    error: state.error
 });
-  const mapDispatchToProps = dispatch => ({
-    
-  })
+
 export default connect(
     mapStateToProps,
     { userLogin }

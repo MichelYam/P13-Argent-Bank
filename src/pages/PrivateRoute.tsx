@@ -3,9 +3,9 @@ import { useAppSelector } from '../redux/store'
 import { selectUser } from '../utils/selector'
 
 const ProtectedRoute = () => {
-    const { userInfo } = useAppSelector(selectUser)
+    const { userToken } = useAppSelector(selectUser)
 
-    if (!userInfo) {
+    if (!userToken) {
         return (
             <div className='unauthorized'>
                 <h1>Unauthorized :(</h1>

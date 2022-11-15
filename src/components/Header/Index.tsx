@@ -15,7 +15,6 @@ export const Header = () => {
         const fetchData = () => {
             if (userToken) {
                 dispatch(getUserDetails(userToken));
-                console.log("user", userInfo)
             }
         }
         fetchData()

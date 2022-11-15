@@ -28,9 +28,6 @@ export const userLogin = ({ email, password }: IUser) => {
             dispatch(loginUser())
             const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
             console.log("data:", data)
-            if (!data) {
-                throw new Error('Error - 404 Not Found');
-            }
             sessionStorage.setItem("userToken", data.body.token)
             dispatch(loginUserSuccess(data));
         } catch (error) {
@@ -69,9 +66,7 @@ export const getUserDetails = (userToken: string) => {
         try {
             dispatch(getUser())
             const { data } = await axios.post(`${BASE_URL}/profile`, {}, config);
-            if (!data) {
-                throw new Error('Error - 404 Not Found');
-            }
+            
             dispatch(getUserSuccess(data));
             console.log("data:", data)
         } catch (error) {

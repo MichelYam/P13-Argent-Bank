@@ -6,14 +6,14 @@ import { initialState } from "./store";
 export interface IDataAPI {
     isAuthenticated: boolean,
     loading: boolean,
-    userInfo: IUser ,
-    userToken: string ,
+    userInfo: IUser,
+    userToken: string,
     error: string,
 }
 interface Action {
     type: string
     payload?: string
-  }
+}
 export default function userReducer(state = initialState, action: any) {
     const { payload } = action
     console.log("payload:", payload)
