@@ -19,11 +19,6 @@ export const userLogin = createAsyncThunk("user/login", async ({ email, password
             },
         }
         const { data } = await axios.post(`${BASE_URL}/login`, { email, password }, config);
-        // if(remember){
-        //     localStorage.setItem("userToken", data.body.token)
-        // }else{
-        //     sessionStorage.setItem("userToken", data.body.token)
-        // }
         saveStorage(data.body.token, remember)
         return data;
     } catch (error: any) {
