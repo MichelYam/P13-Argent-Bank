@@ -4,11 +4,10 @@ import Form from "../../../components/Form/index";
 
 import { Navigate, useNavigate } from 'react-router-dom';
 import { selectUser } from '../../../utils/selector';
-import { useAppSelector } from '../../../redux/store';
+import { useAppSelector } from '../../../redux/test/store';
 
 const SignIn = () => {
   const { userToken } = useAppSelector(selectUser);
-  console.log("token", userToken)
   if (userToken) return <Navigate to="/user" />;
   return (
     <main className="main bg-dark">

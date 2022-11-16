@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { applyMiddleware, createStore } from 'redux';
@@ -9,12 +10,20 @@ const initialState = {
     isAuthenticated: false,
     loading: false,
     userInfo: null,
-    userToken: sessionStorage.getItem('userToken') || null,
+    userToken: null,
     error: null,
 };
+function setInitialState() {
+    const token =
+        localStorage.getItem('token') || sessionStorage.getItem('token') || null;
+    if (token === null) return initialState;
+    axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+    return { ...initialState, loggedIn: true, token };
+}
+
 const middleware = [thunk]
 const store = createStore(
-    userReducer, initialState, applyMiddleware(...middleware)
+    userReducer, setInitialState(), applyMiddleware(...middleware)
 );
 
 export type RootState = ReturnType<typeof store.getState>

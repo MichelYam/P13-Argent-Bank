@@ -4,11 +4,11 @@ import { SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS, GET
 const BASE_URL = "http://localhost:3001/api/v1/user";
 
 export interface IUser {
-    email?: string,
-    password?: string,
-    firstName?: string;
-    lastName?: string;
-    remember?: boolean;
+    email: string | null,
+    password: string | null,
+    firstName: string | null;
+    lastName: string | null;
+    remember: boolean | null;
 }
 export interface IDataAPI {
     isAuthenticated: boolean,
@@ -46,7 +46,6 @@ export const loginUserSuccess = (payload: any) => ({
     type: SET_CURRENT_USER_SUCCESS,
     loading: false,
     payload: payload.body.token
-
 })
 
 export const loginUserError = (payload: any) => ({
@@ -66,7 +65,7 @@ export const getUserDetails = (userToken: string) => {
         try {
             dispatch(getUser())
             const { data } = await axios.post(`${BASE_URL}/profile`, {}, config);
-            
+
             dispatch(getUserSuccess(data));
             console.log("data:", data)
         } catch (error) {

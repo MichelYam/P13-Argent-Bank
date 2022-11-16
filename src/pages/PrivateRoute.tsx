@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { useAppSelector } from '../redux/store'
+import { useAppSelector } from '../redux/test/store'
 import { selectUser } from '../utils/selector'
 
 const ProtectedRoute = () => {

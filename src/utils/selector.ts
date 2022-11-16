@@ -1,3 +1,3 @@
-import type { RootState } from '../redux/store';
+import type { RootState } from '../redux/test/store';
 
-export const selectUser = (state: RootState) => state.user
+export const selectUser = (state: RootState) => state

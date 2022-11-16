@@ -8,7 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/test/store';
 import { useSelector } from 'react-redux';
 
 export const Header = () => {
-    const { userInfo, userToken } = useSelector(selectUser)
+    const { userInfo, userToken } = useAppSelector(selectUser)
+    console.log("token", userToken)
     const dispatch = useAppDispatch()
     const logOut = () => { dispatch(logout()) }
     useEffect(() => {

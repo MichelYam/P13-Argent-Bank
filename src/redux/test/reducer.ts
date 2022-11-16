@@ -15,8 +15,6 @@ interface Action {
     payload?: string
 }
 export default function userReducer(state = initialState, action: any) {
-    const { payload } = action
-    console.log("payload:", payload)
     switch (action.type) {
         case SET_CURRENT_USER:
             return {

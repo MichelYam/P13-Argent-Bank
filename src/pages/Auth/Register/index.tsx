@@ -1,10 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Form from '../../../components/Form';
-import { useAppSelector } from '../../../redux/store';
+import { useAppSelector } from '../../../redux/test/store';
 import { selectUser } from '../../../utils/selector';
-
-import styles from './Style.module.css';
 
 export default function SignIn() {
   const { userToken } = useAppSelector(selectUser);

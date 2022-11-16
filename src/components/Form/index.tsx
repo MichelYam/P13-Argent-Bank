@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-//selector
-import { selectUser } from '../../utils/selector';
+
 // import { userLogin, userRegister } from '../../features/user/userActions';
 import { userLogin } from '../../redux/test/actions';
 //Redux
-import { RootState, useAppDispatch, useAppSelector } from '../../redux/test/store';
+import {  useAppDispatch, useAppSelector } from '../../redux/test/store';
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -39,6 +38,7 @@ function Index({ isLogin, title }: FormInterface) {
         event.preventDefault();
         if (isLogin) {
            dispatch(userLogin(data));
+            // navigate("/user")
         } else {
             if (data.password === data.confirmPassword) {
                 // dispatch(userRegister(data))
@@ -100,7 +100,7 @@ Index.propTypes = {
     title: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: { userToken: string; error: string; }) => ({
     userToken: state.userToken,
     error: state.error
 });

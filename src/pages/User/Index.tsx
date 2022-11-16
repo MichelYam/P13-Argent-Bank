@@ -7,14 +7,16 @@ import { Account } from '../../components/Account/Index';
 //data mock
 import { UserAccountMock } from '../../data/DataMock'
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/test/store';
 import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
 import { useSelector } from 'react-redux';
+import store from '../../redux/store';
 
 export const User: React.FC = () => {
     const { userInfo } = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
+    console.log(store.getState)
     const [input, setInput] = useState({
         firstName: '',
         lastName: '',
