@@ -2,8 +2,12 @@
 import { featuresMock } from '../../data/DataMock'
 //components
 import { Feature } from '../../components/Features/Index';
+import { useEffect } from 'react';
 
 export default function Home() {
+    useEffect(() => {
+        document.title = "Argent Bank - Home Page"
+    }, [])
     return (
         <div className="App">
             <main>

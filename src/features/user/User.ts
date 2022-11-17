@@ -2,22 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { clearStorage } from "../../utils/TokenStorage";
 import { userLogin, userRegister, getUserDetails, updateUserProfile, IUser } from './userActions'
 
-const initialState = {
+
+export interface IDataAPI {
+    isAuthenticated: boolean,
+    loading: boolean,
+    userInfo: IUser | null,
+    userToken: string | null,
+    error: string | null,
+}
+
+const initialState: IDataAPI = {
     isAuthenticated: false,
     loading: false,
     userInfo: null,
     userToken: sessionStorage.getItem('userToken') || localStorage.getItem('userToken') || null,
     error: null,
 }
-
-export interface IDataAPI {
-    isAuthenticated: boolean,
-    loading: boolean,
-    userInfo?: IUser | null,
-    userToken: string | null,
-    error: string | null,
-}
-
 const userSlice = createSlice({
     name: 'user',
     initialState,
