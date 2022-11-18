@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
 //selector
 import { selectUser } from '../../utils/selector';
 //Redux
@@ -27,6 +27,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         confirmPassword: '',
         remember: false,
     })
+    const navigate = useNavigate();
     const { loading, error } = useAppSelector(selectUser);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +46,7 @@ export default function Index({ isLogin, title }: FormInterface) {
         } else {
             if (data.password === data.confirmPassword) {
                 dispatch(userRegister(data))
+                navigate("/login")
             }
         }
     }
