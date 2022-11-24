@@ -4,19 +4,13 @@ import { SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS, GET
 const BASE_URL = "http://localhost:3001/api/v1/user";
 
 export interface IUser {
-    email: string | null,
-    password: string | null,
-    firstName: string | null;
-    lastName: string | null;
-    remember: boolean | null;
+    email?: string,
+    password?: string,
+    firstName?: string;
+    lastName?: string;
+    remember?: boolean;
 }
-export interface IDataAPI {
-    isAuthenticated: boolean,
-    loading: boolean,
-    userInfo?: IUser | null,
-    userToken: string | null,
-    error: string | null,
-}
+
 export const userLogin = ({ email, password }: IUser) => {
     return async (dispatch: any) => {
         const config = {

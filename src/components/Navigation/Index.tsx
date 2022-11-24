@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import style from './Style.module.css';
 
 interface INavigation {
-    userInfo?: IUser | null,
+    userInfo: IUser | null,
     userToken?: string | null,
     logout: () => void
 }

@@ -1,15 +1,6 @@
-import { RootState } from "./store";
-import { IUser } from "./actions";
 import { GET_USER, GET_USER_ERROR, GET_USER_SUCCESS, SET_CURRENT_USER, SET_CURRENT_USER_ERROR, SET_CURRENT_USER_SUCCESS } from './constants/AuthTypes'
 import { initialState } from "./store";
 
-export interface IDataAPI {
-    isAuthenticated: boolean,
-    loading: boolean,
-    userInfo: IUser,
-    userToken: string,
-    error: string,
-}
 interface Action {
     type: string
     payload?: string

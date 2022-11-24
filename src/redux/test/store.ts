@@ -4,26 +4,29 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 
 import thunk from 'redux-thunk';
+import { IUser } from './actions';
 import userReducer from './reducer';
 
-const initialState = {
+export interface IDataAPI {
+    isAuthenticated: boolean,
+    loading: boolean,
+    userInfo: IUser | null,
+    userToken: string | null,
+    error: string | null,
+}
+
+const initialState: IDataAPI = {
     isAuthenticated: false,
     loading: false,
     userInfo: null,
-    userToken: null,
+    userToken: sessionStorage.getItem('userToken') || localStorage.getItem('userToken') || null,
     error: null,
 };
-function setInitialState() {
-    const token =
-        localStorage.getItem('token') || sessionStorage.getItem('token') || null;
-    if (token === null) return initialState;
-    axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
-    return { ...initialState, loggedIn: true, token };
-}
+
 
 const middleware = [thunk]
 const store = createStore(
-    userReducer, setInitialState(), applyMiddleware(...middleware)
+    userReducer, initialState, applyMiddleware(...middleware)
 );
 
 export type RootState = ReturnType<typeof store.getState>
