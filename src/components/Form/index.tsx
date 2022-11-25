@@ -25,7 +25,7 @@ function Index({ isLogin, title }: FormInterface) {
         remember: false,
     })
     const navigate = useNavigate()
-    const { loading, error } = useAppSelector<IDataAPI>((state: any) => state);
+    const { error } = useAppSelector<IDataAPI>((state: any) => state);
     const dispatch = useAppDispatch()
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData({
@@ -38,7 +38,7 @@ function Index({ isLogin, title }: FormInterface) {
         event.preventDefault();
         if (isLogin) {
            dispatch(userLogin(data));
-            // navigate("/user")
+            navigate("/profile")
         } else {
             if (data.password === data.confirmPassword) {
                 // dispatch(userRegister(data))

@@ -8,9 +8,7 @@ import { Account } from '../../components/Account/Index';
 import { UserAccountMock } from '../../data/DataMock'
 
 import { useAppDispatch, useAppSelector } from '../../redux/test/store';
-import { IDataAPI } from '../../features/user/User';
 import { updateUserProfile } from '../../features/user/userActions';
-import { useSelector } from 'react-redux';
 import store from '../../redux/store';
 
 export const User: React.FC = () => {
