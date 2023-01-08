@@ -5,7 +5,7 @@ import { logout } from '../../features/user/User';
 // import { getUserDetails } from '../../features/user/userActions';
 import { getUserDetails } from '../../redux/test/actions';
 import { useAppDispatch, useAppSelector } from '../../redux/test/store';
-import { useSelector } from 'react-redux';
+
 
 export const Header = () => {
     const { userInfo, userToken } = useAppSelector(selectUser)

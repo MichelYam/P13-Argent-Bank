@@ -2,13 +2,13 @@ import React from 'react';
 
 import Form from "../../../components/Form/index";
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { selectUser } from '../../../utils/selector';
 import { useAppSelector } from '../../../redux/test/store';
 
 const SignIn = () => {
   const { userToken } = useAppSelector(selectUser);
-  if (userToken) return <Navigate to="/user" />;
+  if (userToken) return <Navigate to="/profile" />;
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">

@@ -13,22 +13,26 @@ import SignUp from './pages/Auth/Register';
 import { User } from './pages/User/Index';
 import ProtectedRoute from "./pages/PrivateRoute";
 
+import { Provider } from "react-redux";
+import store from './redux/store';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path='/profile' element={<User />} />
-        </Route>
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<SignIn />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/profile' element={<User />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   );
 }
 

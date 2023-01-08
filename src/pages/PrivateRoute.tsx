@@ -4,7 +4,7 @@ import { selectUser } from '../utils/selector'
 
 const ProtectedRoute = () => {
     const { userToken } = useAppSelector(selectUser)
-
+    console.log("test", userToken)
     if (!userToken) {
         return (
             <div className='unauthorized'>
